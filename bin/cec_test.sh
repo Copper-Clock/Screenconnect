@@ -1,5 +1,5 @@
 #!/bin/bash
-
+##
 TMPFILE=/tmp/cec.log
 
 # Clean up old file

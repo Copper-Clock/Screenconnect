@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-
+##
 cd ~/tccconnect/ansible
 sudo -E ansible-playbook -t enable-ssl site.yml
 

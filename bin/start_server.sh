@@ -1,5 +1,5 @@
 #!/bin/bash
-
+##
 ENVIRONMENT=${ENVIRONMENT:-production}
 
 mkdir -p \
