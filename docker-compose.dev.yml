@@ -1,0 +1,68 @@
+# vim: ft=yaml.docker-compose
+
+services:
+  screenconnect-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    environment:
+      - HOME=/data
+      - LISTEN=0.0.0.0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - ENVIRONMENT=development
+    restart: always
+    volumes:
+      - screenconnect-data:/data
+      - ./:/usr/src/app/
+
+  screenconnect-websocket:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.websocket
+    depends_on:
+      - screenconnect-server
+    environment:
+      - HOME=/data
+      - LISTEN=0.0.0.0
+    restart: always
+    volumes:
+      - screenconnect-data:/data
+
+  screenconnect-celery:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.celery
+    depends_on:
+      - screenconnect-server
+      - redis
+    environment:
+      - HOME=/data
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    restart: always
+    volumes:
+      - screenconnect-data:/data
+
+  redis:
+    platform: "linux/amd64"
+    image: redis:alpine
+
+  screenconnect-nginx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nginx
+    ports:
+      - 8000:80
+    environment:
+      - HOME=/data
+    depends_on:
+      - screenconnect-server
+      - screenconnect-websocket
+    restart: always
+    volumes:
+      - screenconnect-data:/data:ro
+
+volumes:
+    screenconnect-data:
+    redis-data:

@@ -1,0 +1,12 @@
+assets:
+  - name: Copper-Clock Weather Widget
+    uri: https://weather.srly.io
+    mimetype: webpage
+
+  - name: Copper-Clock Clock Widget
+    uri: https://clock.srly.io
+    mimetype: webpage
+
+  - name: Hacker News
+    uri: https://news.ycombinator.com
+    mimetype: webpage

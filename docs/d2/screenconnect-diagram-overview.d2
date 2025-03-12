@@ -1,0 +1,55 @@
+direction: down
+
+classes: {
+  containers: {
+    shape: rectangle
+  }
+}
+
+user: "User" {
+  shape: person
+}
+
+database: "SQLite3" {
+  shape: cylinder
+}
+
+a {
+  label: null
+  style.fill: transparent
+  style.stroke: transparent
+}
+
+b {
+  label: null
+  style.fill: transparent
+  style.stroke: transparent
+}
+
+b.display: "Display (Monitor or TV)" {
+  style.3d: true
+}
+
+screenconnect-nginx.class: containers
+b.screenconnect-viewer.class: containers
+a.screenconnect-server.class: containers
+a.screenconnect-websocket.class: containers
+a.screenconnect-celery.class: containers
+a.redis.class: containers
+
+user -> screenconnect-nginx
+screenconnect-nginx <-> a.screenconnect-server
+screenconnect-nginx -> a.screenconnect-websocket
+
+a.screenconnect-server <-> a.screenconnect-celery
+a.screenconnect-websocket <-> a.screenconnect-server
+a.screenconnect-celery -> a.redis: "in-memory data"
+a.redis <-> a.screenconnect-server
+
+b.screenconnect-viewer <-> database: "assets data"
+
+a.screenconnect-server <-> b.screenconnect-viewer: "assets data"
+a.screenconnect-server <-> database
+a.screenconnect-celery <-> database
+
+b.screenconnect-viewer -> b.display: "current asset"

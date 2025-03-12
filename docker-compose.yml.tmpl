@@ -1,0 +1,154 @@
+# vim: ft=yaml.docker-compose
+
+services:
+  screenconnect-wifi-connect:
+    image: tccconnect/screenconnect-wifi-connect:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.wifi-connect
+    depends_on:
+      - screenconnect-viewer
+    environment:
+      PORTAL_LISTENING_PORT: 8000
+      CHECK_CONN_FREQ: 10
+      PORTAL_SSID: 'Screenconnect WiFi Connect'
+      DBUS_SYSTEM_BUS_ADDRESS: 'unix:path=/run/dbus/system_bus_socket'
+    network_mode: host
+    privileged: true
+    volumes:
+      - type: bind
+        source: /run/dbus/system_bus_socket
+        target: /run/dbus/system_bus_socket
+
+  screenconnect-server:
+    image: tccconnect/screenconnect-server:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    environment:
+      - MY_IP=${MY_IP}
+      - MAC_ADDRESS=${MAC_ADDRESS}
+      - HOST_USER=${USER}
+      - HOME=/data
+      - LISTEN=0.0.0.0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    devices:
+      - "/dev/vchiq:/dev/vchiq"
+    restart: always
+    volumes:
+      - resin-data:/data
+      - /home/${USER}/.tccconnect:/data/.tccconnect
+      - /home/${USER}/tccconnect_assets:/data/tccconnect_assets
+      - /home/${USER}/tccconnect/staticfiles:/data/tccconnect/staticfiles
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      io.balena.features.supervisor-api: '1'
+
+  screenconnect-viewer:
+    image: tccconnect/screenconnect-viewer:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.viewer
+    mem_limit: ${VIEWER_MEMORY_LIMIT_KB}k
+    depends_on:
+      - screenconnect-server
+    environment:
+      - HOME=/data
+      - PORT=80
+      - NOREFRESH=1
+      - LISTEN=screenconnect-nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    privileged: true
+    restart: always
+    shm_size: ${SHM_SIZE_KB}kb
+    volumes:
+      - resin-data:/data
+      - /home/${USER}/.asoundrc:/data/.asoundrc
+      - /home/${USER}/.tccconnect:/data/.tccconnect
+      - /home/${USER}/tccconnect_assets:/data/tccconnect_assets
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      io.balena.features.supervisor-api: '1'
+
+  screenconnect-websocket:
+    image: tccconnect/screenconnect-websocket:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.websocket
+    depends_on:
+      - screenconnect-server
+    environment:
+      - HOME=/data
+      - LISTEN=0.0.0.0
+    restart: always
+    volumes:
+      - resin-data:/data
+      - /home/${USER}/.tccconnect:/data/.tccconnect
+      - /home/${USER}/tccconnect_assets:/data/tccconnect_assets
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+  screenconnect-celery:
+    image: tccconnect/screenconnect-celery:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.celery
+    depends_on:
+      - screenconnect-server
+      - redis
+    environment:
+      - HOME=/data
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    devices:
+      - "/dev/vchiq:/dev/vchiq"
+    restart: always
+    volumes:
+      - resin-data:/data
+      - /home/${USER}/.tccconnect:/data/.tccconnect
+      - /home/${USER}/tccconnect_assets:/data/tccconnect_assets
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      io.balena.features.supervisor-api: '1'
+
+  redis:
+    image: tccconnect/screenconnect-redis:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.redis
+    ports:
+      - 127.0.0.1:6379:6379
+    restart: always
+    volumes:
+      - redis-data:/var/lib/redis
+
+  screenconnect-nginx:
+    image: tccconnect/screenconnect-nginx:${DOCKER_TAG}-${DEVICE_TYPE}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nginx
+    ports:
+      - 80:80
+    environment:
+      - HOME=/data
+    depends_on:
+      - screenconnect-server
+      - screenconnect-websocket
+    restart: always
+    volumes:
+      - resin-data:/data:ro
+      - /home/${USER}/.tccconnect:/data/.tccconnect:ro
+      - /home/${USER}/tccconnect_assets:/data/tccconnect_assets:ro
+      - /home/${USER}/tccconnect/staticfiles:/data/tccconnect/staticfiles:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  resin-data:
+  redis-data:
+  tccconnect-data:

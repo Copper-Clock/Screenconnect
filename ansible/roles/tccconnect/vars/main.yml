@@ -1,0 +1,13 @@
+tccconnect_systemd_units:
+  - screenconnect-host-agent.service
+
+deprecated_tccconnect_systemd_units:
+  - tccconnect-celery.service
+  - tccconnect-web.service
+  - tccconnect-websocket_server_layer.service
+  - tccconnect-viewer.service
+  - X.service
+  - matchbox.service
+  - tccconnect-host-agent.service
+  - udev-restart.service
+  - wifi-connect.service

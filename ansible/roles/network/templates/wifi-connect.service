@@ -1,0 +1,12 @@
+[Unit]
+Description=Screenconnect WiFi Connect
+After=docker.service
+
+[Service]
+WorkingDirectory=/home/{{ lookup('env', 'USER') }}/tccconnect
+User={{ lookup('env', 'USER') }}
+
+ExecStart=bash /home/{{ lookup('env', 'USER') }}/tccconnect/start_wifi_connect_service.sh
+
+[Install]
+WantedBy=multi-user.target
