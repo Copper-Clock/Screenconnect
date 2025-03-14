@@ -24,7 +24,7 @@ on:
       - '!.github/workflows/build-balena-disk-image.yaml'
       - '!docs/**'
   workflow_call:
-
+    
 jobs:
   run-tests:
     runs-on: ubuntu-24.04
@@ -78,6 +78,10 @@ jobs:
       - name: Start the test container
         run: |
           docker compose -f docker-compose.test.yml up -d --build
+
+      - name: Set executable permissions for manage.py
+        run: |
+          docker compose -f docker-compose.test.yml exec screenconnect-test chmod +x ./manage.py
 
       - name: Run the unit tests inside the container
         run: |
