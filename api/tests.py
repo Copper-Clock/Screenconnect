@@ -113,7 +113,7 @@ class CRUDAssetEndpointsTest(TestCase, ParametrizedTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         self.assertEqual(response.data['name'], 'Screenconnect')
-        self.assertEqual(response.data['uri'], 'https://cms.copperclockwifi.com/public/dont_remove/1.mp4')
+        self.assertEqual(response.data['uri'], 'https://cms.copperclockwifi.com')
         self.assertEqual(response.data['is_enabled'], 0)
         self.assertEqual(response.data['nocache'], 0)
         self.assertEqual(response.data['play_order'], 0)
@@ -151,7 +151,7 @@ class CRUDAssetEndpointsTest(TestCase, ParametrizedTestCase):
         )
 
         self.assertEqual(updated_asset['name'], 'Screenconnect')
-        self.assertEqual(updated_asset['uri'], 'https://cms.copperclockwifi.com/public/dont_remove/2.jpg')
+        self.assertEqual(updated_asset['uri'], 'https://cms.copperclockwifi.com')
         self.assertEqual(updated_asset['duration'], data['duration'])
         self.assertEqual(updated_asset['is_enabled'], data['is_enabled'])
         self.assertEqual(updated_asset['play_order'], data['play_order'])
@@ -192,7 +192,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['type'], 'url')
-        self.assertEqual(data['url'], 'https://cms.copperclockwifi.com/public/dont_remove/1.mp4')
+        self.assertEqual(data['url'], 'https://cms.copperclockwifi.com')
 
     def test_file_asset(self):
         project_base_path = django_settings.BASE_DIR
