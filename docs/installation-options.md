@@ -68,7 +68,7 @@ If you'd like more control over your digital signage instance, try installing it
 The TL;DR for on [Raspberry Pi OS](https://www.raspberrypi.com/software/) or Debian is:
 
 ```
-$ bash <(curl -sL https://install-screenconnect.srly.io)
+$ bash <(curl -sL https://install-connect.srly.io)
 ```
 
 You'll be prompted with the following questions:
@@ -82,7 +82,7 @@ You can either use the arrow keys to select your choice and then press Enter or 
 (for yes-no questions). The installer will display your responses before proceeding with the
 installation.
 
-![install-connect-gif](/docs/images/install-screenconnect.gif)
+![install-connect-gif](/docs/images/install-connect.gif)
 
 **This installation will take 15 minutes to several hours**, depending on variables such as:
 

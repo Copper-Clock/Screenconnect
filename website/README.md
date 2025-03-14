@@ -1,6 +1,6 @@
 # Screenconnect Website
 
-This is the source code for [screenconnect.tccconnect.io](https://screenconnect.tccconnect.io).
+This is the source code for [connect.tccconnect.io](https://connect.tccconnect.io).
 
 ## Local Development
 

@@ -55,7 +55,7 @@
 - name: Download upgrade script from github repository
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Copper-Clock/Screenconnect/master/bin/install.sh
-    dest: /usr/local/sbin/upgrade_screenconnect.sh
+    dest: /usr/local/sbin/upgrade_connect.sh
     mode: "0700"
     owner: root
     group: root

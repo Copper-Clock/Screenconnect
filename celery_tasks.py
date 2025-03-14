@@ -62,7 +62,7 @@ def cleanup():
 
 
 @celery.task
-def reboot_screenconnect():
+def reboot_connect():
     """
     Background task to reboot Screenconnect
     """
@@ -78,7 +78,7 @@ def reboot_screenconnect():
 
 
 @celery.task
-def shutdown_screenconnect():
+def shutdown_connect():
     """
     Background task to shutdown Screenconnect
     """

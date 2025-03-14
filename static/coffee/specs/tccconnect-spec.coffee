@@ -37,7 +37,7 @@ describe "Screenconnect", ->
         mimetype: 'webpage'
         name: 'Test'
         start_date: start_date
-        uri: 'https://screenconnect.tccconnect.io'
+        uri: 'https://connect.tccconnect.io'
       })
 
       it "should be active if enabled and date is in range", ->
@@ -71,7 +71,7 @@ describe "Screenconnect", ->
         expect(asset.get 'is_enabled').toBe true
         expect(asset.get 'name').toBe 'Test'
         expect(asset.get 'start_date').toBe start_date
-        expect(asset.get 'uri').toBe "https://screenconnect.tccconnect.io"
+        expect(asset.get 'uri').toBe "https://connect.tccconnect.io"
 
       it "should erase backup date after rollback", ->
         asset.set({
@@ -106,21 +106,21 @@ describe "Screenconnect", ->
           asset_id: 1
           is_enabled: true
           name: 'AAA'
-          uri: 'https://screenconnect.tccconnect.io',
+          uri: 'https://connect.tccconnect.io',
           play_order: 2
         })
         asset2 = new Screenconnect.Asset({
           asset_id: 2
           is_enabled: true
           name: 'BBB'
-          uri: 'https://screenconnect.tccconnect.io',
+          uri: 'https://connect.tccconnect.io',
           play_order: 1
         })
         asset3 = new Screenconnect.Asset({
           asset_id: 3
           is_enabled: true
           name: 'CCC'
-          uri: 'https://screenconnect.tccconnect.io',
+          uri: 'https://connect.tccconnect.io',
           play_order: 0
         })
 

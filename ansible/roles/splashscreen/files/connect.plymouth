@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Screenconnect
+Description=Screenconnect Splash Screen
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/connect
+ScriptFile=/usr/share/plymouth/themes/connect/connect.script

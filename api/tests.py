@@ -291,7 +291,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         self.assertEqual(data['viewlog'], 'Not yet implemented')
 
     @mock.patch(
-        'api.views.mixins.reboot_screenconnect.apply_async',
+        'api.views.mixins.reboot_connect.apply_async',
         side_effect=(lambda: None)
     )
     def test_reboot(self, reboot_connect_mock):
@@ -302,7 +302,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         self.assertEqual(reboot_connect_mock.call_count, 1)
 
     @mock.patch(
-        'api.views.mixins.shutdown_screenconnect.apply_async',
+        'api.views.mixins.shutdown_connect.apply_async',
         side_effect=(lambda: None)
     )
     def test_shutdown(self, shutdown_connect_mock):

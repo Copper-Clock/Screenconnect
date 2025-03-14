@@ -1,4 +1,4 @@
-import '../sass/screenconnect.scss'
+import '../sass/connect.scss'
 
 $().ready ->
 

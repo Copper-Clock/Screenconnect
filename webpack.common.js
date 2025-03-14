@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'screenconnect': './static/js/screenconnect.coffee',
+    'connect': './static/js/connect.coffee',
     'settings': './static/js/settings.coffee',
   },
   output: {
@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/screenconnect.css'
+      filename: 'css/connect.css'
     })
   ],
   module: {

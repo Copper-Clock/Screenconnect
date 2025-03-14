@@ -45,12 +45,12 @@ else:
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'screenconnect',
+    'connect',
     'connect-server'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://screenconnect'
+    'http://connect'
 ]
 
 
@@ -187,4 +187,4 @@ SPECTACULAR_SETTINGS = {
 # `django-dbbackup` settings
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': '/data/.tccconnect/backups'}
-DBBACKUP_HOSTNAME = 'screenconnect'
+DBBACKUP_HOSTNAME = 'connect'

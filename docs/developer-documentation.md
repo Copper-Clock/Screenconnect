@@ -230,10 +230,10 @@ present in a Raspberry Pi with Screenconnect installed.
 
 * `sudoers` configuration file that allows pi user to execute certain `sudo` commands without being a superuser (i.e., `root`)
 
-### `/usr/share/plymouth/themes/screenconnect`
+### `/usr/share/plymouth/themes/connect`
 
-* `screenconnect.plymouth` &mdash; Plymouth config file (sets module name, `ImageDir` and `ScriptFile` dir)
-* `screenconnect.script` &ndash; plymouth script file that loads and scales the splash screen image during the boot process
+* `connect.plymouth` &mdash; Plymouth config file (sets module name, `ImageDir` and `ScriptFile` dir)
+* `connect.script` &ndash; plymouth script file that loads and scales the splash screen image during the boot process
 * `splashscreen.png` &mdash; the spash screen image that is displayed during the boot process
 
 ## Debugging the Screenconnect WebView

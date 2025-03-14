@@ -21,7 +21,7 @@
 
 ## :sparkles: About Screenconnect
 
-Screenconnect is a digital signage platform for Raspberry Pi devices and PCs. Formerly known as Copper-Clock OSE, it was rebranded to clear up the confusion between Copper-Clock (the paid version) and Screenconnect. More details can be found in [this blog post](https://www.tccconnect.io/blog/2022/12/06/tccconnect-ose-now-called-screenconnect/).
+Screenconnect is a digital signage platform for Raspberry Pi devices and PCs. Formerly known as Copper-Clock OSE, it was rebranded to clear up the confusion between Copper-Clock (the paid version) and Screenconnect. More details can be found in [this blog post](https://www.tccconnect.io/blog/2022/12/06/tccconnect-ose-now-called-connect/).
 
 :tada: **NEW: Now with Raspberry Pi 5 Support!** :tada:
 
@@ -69,7 +69,7 @@ See [this](/docs/installation-options.md) page for options on how to install Scr
 ## :zap: Quick Links
 
 * [Forum](https://forums.tccconnect.io/)
-* [Website](https://screenconnect.tccconnect.io) (hosted on GitHub and the source is available [here](/website))
+* [Website](https://connect.tccconnect.io) (hosted on GitHub and the source is available [here](/website))
 * [General documentation](https://github.com/Copper-Clock/Screenconnect/blob/master/docs/README.md)
 * [Developer documentation](https://github.com/Copper-Clock/Screenconnect/blob/master/docs/developer-documentation.md)
 * [Migrating assets from Screenconnect to Copper-Clock](/docs/migrating-assets-to-tccconnect.md)

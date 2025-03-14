@@ -103,7 +103,7 @@ jobs:
               "name": ("Screenconnect (" + $BOARD + ")"),
               "description": "Screenconnect, formerly known as Copper-Clock OSE, is the most popular open source digital signage project in the world.",
               "icon": "https://raw.githubusercontent.com/Copper-Clock/Screenconnect/master/static/img/square-dark.svg",
-              "website": "https://screenconnect.tccconnect.io",
+              "website": "https://connect.tccconnect.io",
               "extract_size": $IMAGE_SIZE,
               "extract_sha256": $IMAGE_SHA256,
               "image_download_size": $DOWNLOAD_SIZE,

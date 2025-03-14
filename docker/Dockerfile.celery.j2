@@ -18,7 +18,7 @@ ENV GIT_BRANCH={{ git_branch }}
 ENV DJANGO_SETTINGS_MODULE="connect_django.settings"
 
 CMD celery -A celery_tasks.celery worker \
-  -B -n worker@screenconnect \
+  -B -n worker@connect \
   --loglevel=info \
   --schedule \
   /tmp/celerybeat-schedule

@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 
 from connect_app.models import Asset
 from api.helpers import save_active_assets_ordering
-from celery_tasks import reboot_screenconnect, shutdown_screenconnect
+from celery_tasks import reboot_connect, shutdown_connect
 from lib import backup_helper
 from lib.auth import authorized
 from settings import ZmqPublisher, settings
@@ -110,7 +110,7 @@ class RebootViewMixin(APIView):
     @extend_schema(summary='Reboot system')
     @authorized
     def post(self, request):
-        reboot_screenconnect.apply_async()
+        reboot_connect.apply_async()
         return Response(status=status.HTTP_200_OK)
 
 
@@ -118,7 +118,7 @@ class ShutdownViewMixin(APIView):
     @extend_schema(summary='Shut down system')
     @authorized
     def post(self, request):
-        shutdown_screenconnect.apply_async()
+        shutdown_connect.apply_async()
         return Response(status=status.HTTP_200_OK)
 
 

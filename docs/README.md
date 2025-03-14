@@ -53,7 +53,7 @@ $ docker compose logs -f ${SERVICE_NAME}
 # e.g., docker compose logs -f connect-server
 ```
 
-Check out [this section](/docs/developer-documentation.md#understanding-the-components-that-make-up-screenconnect) of the Developer documentation page for the list of available services.
+Check out [this section](/docs/developer-documentation.md#understanding-the-components-that-make-up-connect) of the Developer documentation page for the list of available services.
 
 ## Enabling SSH
 
@@ -64,7 +64,7 @@ See [the official documentation](https://www.raspberrypi.org/documentation/remot
 Run the following command in your console:
 
 ```bash
-$ bash <(curl -sL https://install-screenconnect.srly.io)
+$ bash <(curl -sL https://install-connect.srly.io)
 ```
 
 Alternatively, you can also run the following command:
