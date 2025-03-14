@@ -370,7 +370,7 @@ def load_browser():
 
     browser = sh.Command('Copper-ClockWebview')(_bg=True, _err_to_out=True)
     while (
-        'Copper-Clock service start' not in browser.process.stdout.decode('utf-8')
+        'Connect service start' not in browser.process.stdout.decode('utf-8')
     ):
         sleep(1)
 
