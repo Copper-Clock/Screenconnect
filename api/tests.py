@@ -16,11 +16,11 @@ from settings import settings as screenconnect_settings
 ASSET_LIST_V1_1_URL = reverse('api:asset_list_v1_1')
 ASSET_CREATION_DATA = {
     'name': 'Screenconnect',
-    'uri': 'https://screenconnect.tccconnect.io',
+    'uri': 'https://cms.copperclockwifi.com/public/dont_remove/1.mp4',
     'start_date': '2019-08-24T14:15:22Z',
     'end_date': '2029-08-24T14:15:22Z',
     'duration': 20,
-    'mimetype': 'webpage',
+    'mimetype': 'video',
     'is_enabled': 0,
     'nocache': 0,
     'play_order': 0,
@@ -28,11 +28,11 @@ ASSET_CREATION_DATA = {
 }
 ASSET_UPDATE_DATA_V1_2 = {
     'name': 'Screenconnect',
-    'uri': 'https://screenconnect.tccconnect.io',
+    'uri': 'https://cms.copperclockwifi.com/public/dont_remove/2.jpg',
     'start_date': '2019-08-24T14:15:22Z',
     'end_date': '2029-08-24T14:15:22Z',
     'duration': '15',
-    'mimetype': 'webpage',
+    'mimetype': 'image',
     'is_enabled': 1,
     'nocache': 0,
     'play_order': 0,
