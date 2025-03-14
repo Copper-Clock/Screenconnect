@@ -1,6 +1,6 @@
 from gunicorn.app.base import Application
 
-from screenconnect_django import wsgi
+from connect_django import wsgi
 from settings import LISTEN, PORT
 
 

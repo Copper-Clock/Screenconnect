@@ -1,5 +1,5 @@
 """
-WSGI config for screenconnect_django project.
+WSGI config for connect_django project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

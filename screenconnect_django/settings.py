@@ -80,7 +80,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'screenconnect_django.urls'
+ROOT_URLCONF = 'connect_django.urls'
 
 TEMPLATES = [
     {
@@ -100,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'screenconnect_django.wsgi.application'
+WSGI_APPLICATION = 'connect_django.wsgi.application'
 
 
 # Database
