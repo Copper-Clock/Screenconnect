@@ -54,7 +54,7 @@ def set_token(value):
 ############
 
 def get_assets_by_screenconnect_api():
-    if click.confirm('Do you need authentication to access Screenconnect API?'):
+    if click.confirm('Do you need authentication to access Connect API?'):
         login = click.prompt('Login')
         password = click.prompt('Password', hide_input=True)
         auth = HTTPBasicAuth(login, password)
