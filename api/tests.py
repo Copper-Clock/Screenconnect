@@ -191,7 +191,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         data = response.data
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(data['type'], 'video')
+        self.assertEqual(data['type'], 'url')
         self.assertEqual(data['url'], 'https://cms.copperclockwifi.com/public/dont_remove/1.mp4')
 
     def test_file_asset(self):
