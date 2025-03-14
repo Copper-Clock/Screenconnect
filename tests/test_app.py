@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.common.exceptions import ElementNotVisibleException
 from splinter import Browser
 
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from settings import settings
 
 main_page_url = 'http://localhost:8080'

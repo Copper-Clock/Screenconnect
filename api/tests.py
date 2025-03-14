@@ -10,8 +10,8 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from unittest_parametrize import ParametrizedTestCase, parametrize
 
-from screenconnect_app.models import Asset
-from settings import settings as screenconnect_settings
+from connect_app.models import Asset
+from settings import settings as connect_settings
 
 ASSET_LIST_V1_1_URL = reverse('api:asset_list_v1_1')
 ASSET_CREATION_DATA = {
@@ -176,7 +176,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         self.remove_all_asset_files()
 
     def remove_all_asset_files(self):
-        asset_directory_path = Path(screenconnect_settings['assetdir'])
+        asset_directory_path = Path(connect_settings['assetdir'])
         for file in asset_directory_path.iterdir():
             file.unlink()
 
@@ -294,23 +294,23 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         'api.views.mixins.reboot_screenconnect.apply_async',
         side_effect=(lambda: None)
     )
-    def test_reboot(self, reboot_screenconnect_mock):
+    def test_reboot(self, reboot_connect_mock):
         reboot_url = reverse('api:reboot_v1')
         response = self.client.post(reboot_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(reboot_screenconnect_mock.call_count, 1)
+        self.assertEqual(reboot_connect_mock.call_count, 1)
 
     @mock.patch(
         'api.views.mixins.shutdown_screenconnect.apply_async',
         side_effect=(lambda: None)
     )
-    def test_shutdown(self, shutdown_screenconnect_mock):
+    def test_shutdown(self, shutdown_connect_mock):
         shutdown_url = reverse('api:shutdown_v1')
         response = self.client.post(shutdown_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(shutdown_screenconnect_mock.call_count, 1)
+        self.assertEqual(shutdown_connect_mock.call_count, 1)
 
     @mock.patch('api.views.v1.ZmqPublisher.send_to_viewer', return_value=None)
     def test_viewer_current_asset(self, send_to_viewer_mock):

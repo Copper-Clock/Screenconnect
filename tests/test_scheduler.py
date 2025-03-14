@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 import viewer  # noqa: E402
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from settings import settings
 
 logging.disable(logging.CRITICAL)

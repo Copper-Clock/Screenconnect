@@ -5,7 +5,7 @@ import yaml
 from django.shortcuts import render
 from django.utils import timezone
 
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from lib.github import is_up_to_date
 from lib.utils import get_video_duration
 from settings import settings

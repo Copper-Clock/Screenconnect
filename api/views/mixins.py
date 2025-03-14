@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from api.helpers import save_active_assets_ordering
 from celery_tasks import reboot_screenconnect, shutdown_screenconnect
 from lib import backup_helper

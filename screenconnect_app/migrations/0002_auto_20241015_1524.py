@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('screenconnect_app', '0001_initial'),
+        ('connect_app', '0001_initial'),
     ]
 
     operations = [

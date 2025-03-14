@@ -277,7 +277,7 @@ function modify_permissions() {
     fi
 }
 
-function write_screenconnect_version() {
+function write_connect_version() {
     local GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local GIT_SHORT_HASH=$(git rev-parse --short HEAD)
     local SCREENCONNECT_VERSION="Screenconnect Version: ${GIT_BRANCH}@${GIT_SHORT_HASH}"
@@ -394,7 +394,7 @@ function main() {
     cleanup
     modify_permissions
 
-    write_screenconnect_version
+    write_connect_version
     post_installation
 }
 

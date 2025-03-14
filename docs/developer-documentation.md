@@ -33,7 +33,7 @@ $ ./bin/start_development_server.sh
 # ...
 
 [+] Running 6/6
- ✔ Network screenconnect_default                Created                            0.1s
+ ✔ Network connect_default                Created                            0.1s
  ✔ Container screenconnect-redis-1              Started                            0.2s
  ✔ Container screenconnect-screenconnect-server-1     Started                            0.2s
  ✔ Container screenconnect-screenconnect-celery-1     Started                            0.3s

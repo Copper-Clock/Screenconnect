@@ -6,7 +6,7 @@ chmod -f g+rwX /dev/vchiq
 
 # Set permission for sha file
 chown -f viewer /dev/snd/*
-chown -f viewer /data/.tccconnect/latest_screenconnect_sha
+chown -f viewer /data/.tccconnect/latest_connect_sha
 
 # Fixes caching in QTWebEngine
 mkdir -p /data/.local/share/Copper-ClockWebview/QtWebEngine \

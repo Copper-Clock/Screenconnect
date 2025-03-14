@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = 'screenconnect_app'
+app_name = 'connect_app'
 
 urlpatterns = [
     path('', views.index, name='index'),

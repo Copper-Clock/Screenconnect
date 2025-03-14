@@ -29,7 +29,7 @@ from tenacity import (
     wait_fixed,
 )
 
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from settings import ZmqPublisher, settings
 
 standard_library.install_aliases()

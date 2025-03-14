@@ -212,15 +212,15 @@ def system_info(request):
 
     git_branch = diagnostics.get_git_branch()
     git_short_hash = diagnostics.get_git_short_hash()
-    screenconnect_commit_link = None
+    connect_commit_link = None
 
     if git_branch == 'master':
-        screenconnect_commit_link = (
+        connect_commit_link = (
             'https://github.com/Copper-Clock/Screenconnect'
             f'/commit/{git_short_hash}'
         )
 
-    screenconnect_version = '{}@{}'.format(
+    connect_version = '{}@{}'.format(
         git_branch,
         git_short_hash,
     )
@@ -236,8 +236,8 @@ def system_info(request):
         'memory': memory,
         'display_power': display_power,
         'device_model': device_model,
-        'screenconnect_version': screenconnect_version,
-        'screenconnect_commit_link': screenconnect_commit_link,
+        'connect_version': connect_version,
+        'connect_commit_link': connect_commit_link,
         'mac_address': get_node_mac_address(),
         'is_balena': is_balena_app(),
     }

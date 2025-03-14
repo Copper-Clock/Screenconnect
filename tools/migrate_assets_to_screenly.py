@@ -53,7 +53,7 @@ def set_token(value):
 # Database #
 ############
 
-def get_assets_by_screenconnect_api():
+def get_assets_by_connect_api():
     if click.confirm('Do you need authentication to access Connect API?'):
         login = click.prompt('Login')
         password = click.prompt('Password', hide_input=True)
@@ -136,7 +136,7 @@ def start_migration():
 
 def assets_migration():
     try:
-        assets = get_assets_by_screenconnect_api()
+        assets = get_assets_by_connect_api()
     except RequestException as error:
         click.secho(f'Error: {error}', fg='red')
         sys.exit(1)

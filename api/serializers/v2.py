@@ -8,7 +8,7 @@ from rest_framework.serializers import (
     Serializer,
 )
 
-from screenconnect_app.models import Asset
+from connect_app.models import Asset
 from api.serializers import UpdateAssetSerializer
 from api.serializers.mixins import CreateAssetSerializerMixin
 

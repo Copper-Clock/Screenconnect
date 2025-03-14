@@ -32,7 +32,7 @@ try:
 
     from django.utils import timezone
 
-    from screenconnect_app.models import Asset
+    from connect_app.models import Asset
     from lib.utils import (
         connect_to_redis,
         get_balena_device_info,
