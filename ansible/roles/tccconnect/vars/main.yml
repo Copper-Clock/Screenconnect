@@ -1,5 +1,5 @@
 tccconnect_systemd_units:
-  - screenconnect-host-agent.service
+  - connect-host-agent.service
 
 deprecated_tccconnect_systemd_units:
   - tccconnect-celery.service

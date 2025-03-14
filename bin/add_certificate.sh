@@ -20,7 +20,7 @@ function main() {
     fi
 
     CERTIFICATE_DIR='/usr/local/share/ca-certificates/custom'
-    CONTAINERS=(screenconnect-server screenconnect-viewer)
+    CONTAINERS=(connect-server connect-viewer)
     CERTIFICATE_FILENAME=$(basename $CERTIFICATE_PATH)
 
     cd $HOME/tccconnect
@@ -30,7 +30,7 @@ function main() {
         docker compose cp $CERTIFICATE_PATH $CONTAINER:$CERTIFICATE_DIR
         docker compose exec -it $CONTAINER update-ca-certificates
 
-        if [ "$CONTAINER" == "screenconnect-viewer" ]; then
+        if [ "$CONTAINER" == "connect-viewer" ]; then
             echo "Running certutil for $CONTAINER..."
             docker compose exec -it $CONTAINER \
                 certutil -A -n "My CA Certificate" -t "C,C,C" \

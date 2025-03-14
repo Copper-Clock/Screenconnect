@@ -2,10 +2,10 @@
 
 version: "2"
 services:
-  screenconnect-wifi-connect:
-    image: tccconnect/screenconnect-wifi-connect:${GIT_SHORT_HASH}-${BOARD}
+  connect-wifi-connect:
+    image: tccconnect/connect-wifi-connect:${GIT_SHORT_HASH}-${BOARD}
     depends_on:
-      - screenconnect-viewer
+      - connect-viewer
     environment:
       PORTAL_LISTENING_PORT: 8000
       CHECK_CONN_FREQ: 10
@@ -17,8 +17,8 @@ services:
       io.balena.features.dbus: "1"
       io.balena.features.firmware: "1"
 
-  screenconnect-server:
-    image: tccconnect/screenconnect-server:${GIT_SHORT_HASH}-${BOARD}
+  connect-server:
+    image: tccconnect/connect-server:${GIT_SHORT_HASH}-${BOARD}
     environment:
       - HOME=/data
       - LISTEN=0.0.0.0
@@ -32,15 +32,15 @@ services:
     labels:
       io.balena.features.supervisor-api: '1'
 
-  screenconnect-viewer:
-    image: tccconnect/screenconnect-viewer:${GIT_SHORT_HASH}-${BOARD}
+  connect-viewer:
+    image: tccconnect/connect-viewer:${GIT_SHORT_HASH}-${BOARD}
     depends_on:
-      - screenconnect-server
+      - connect-server
     environment:
       - HOME=/data
       - PORT=80
       - NOREFRESH=1
-      - LISTEN=screenconnect-nginx
+      - LISTEN=connect-nginx
     extra_hosts:
       - "host.docker.internal:host-gateway"
     privileged: true
@@ -51,10 +51,10 @@ services:
     labels:
       io.balena.features.supervisor-api: '1'
 
-  screenconnect-websocket:
-    image: tccconnect/screenconnect-websocket:${GIT_SHORT_HASH}-${BOARD}
+  connect-websocket:
+    image: tccconnect/connect-websocket:${GIT_SHORT_HASH}-${BOARD}
     depends_on:
-      - screenconnect-server
+      - connect-server
     environment:
       - HOME=/data
       - LISTEN=0.0.0.0
@@ -62,10 +62,10 @@ services:
     volumes:
       - resin-data:/data
 
-  screenconnect-celery:
-    image: tccconnect/screenconnect-celery:${GIT_SHORT_HASH}-${BOARD}
+  connect-celery:
+    image: tccconnect/connect-celery:${GIT_SHORT_HASH}-${BOARD}
     depends_on:
-      - screenconnect-server
+      - connect-server
       - redis
     environment:
       - HOME=/data
@@ -80,22 +80,22 @@ services:
       io.balena.features.supervisor-api: '1'
 
   redis:
-    image: tccconnect/screenconnect-redis:${GIT_SHORT_HASH}-${BOARD}
+    image: tccconnect/connect-redis:${GIT_SHORT_HASH}-${BOARD}
     ports:
       - 127.0.0.1:6379:6379
     restart: always
     volumes:
       - redis-data:/var/lib/redis
 
-  screenconnect-nginx:
-    image: tccconnect/screenconnect-nginx:${GIT_SHORT_HASH}-${BOARD}
+  connect-nginx:
+    image: tccconnect/connect-nginx:${GIT_SHORT_HASH}-${BOARD}
     ports:
       - 80:80
     environment:
       - HOME=/data
     depends_on:
-      - screenconnect-server
-      - screenconnect-websocket
+      - connect-server
+      - connect-websocket
     restart: always
     volumes:
       - resin-data:/data:ro

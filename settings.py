@@ -192,7 +192,7 @@ class ZmqConsumer(object):
 
         self.socket = self.context.socket(zmq.PUSH)
         self.socket.setsockopt(zmq.LINGER, 0)
-        self.socket.connect('tcp://screenconnect-server:5558')
+        self.socket.connect('tcp://connect-server:5558')
 
         sleep(1)
 

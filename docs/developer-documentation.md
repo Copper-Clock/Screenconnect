@@ -4,15 +4,15 @@
 
 Here is a high-level overview of the different components that make Screenconnect:
 
-![Screenconnect Diagram Overview](/docs/d2/screenconnect-diagram-overview.svg)
+![Screenconnect Diagram Overview](/docs/d2/connect-diagram-overview.svg)
 
 These components and their dependencies are mostly installed and handled with Ansible and Docker.
 
-* The **NGINX** component (`screenconnect-nginx`) forwards requests to the backend and serves static files. It also acts as a reverse proxy.
-* The **viewer** (`screenconnect-viewer`) is what drives the screen (e.g., shows web page, image or video).
-* The **web app** component (`screenconnect-server`) &mdash; which consists of the front-end and back-end code &ndash; is what the user interacts with via browser.
-* The **Celery** (`screenconnect-celery`) component is for aynschronouslt queueing and executing tasks outside the HTTP request-response cycle (e.g., doing assets cleanup).
-* The **WebSocket** (`screenconnect-websocket`) component is used for forwarding requests from NGINX to the backend.
+* The **NGINX** component (`connect-nginx`) forwards requests to the backend and serves static files. It also acts as a reverse proxy.
+* The **viewer** (`connect-viewer`) is what drives the screen (e.g., shows web page, image or video).
+* The **web app** component (`connect-server`) &mdash; which consists of the front-end and back-end code &ndash; is what the user interacts with via browser.
+* The **Celery** (`connect-celery`) component is for aynschronouslt queueing and executing tasks outside the HTTP request-response cycle (e.g., doing assets cleanup).
+* The **WebSocket** (`connect-websocket`) component is used for forwarding requests from NGINX to the backend.
 * **Redis** (`redis`) is used as a database, cache and message broker.
 * The **database** component uses **SQLite** for storing the assets information.
 
@@ -34,11 +34,11 @@ $ ./bin/start_development_server.sh
 
 [+] Running 6/6
  ✔ Network connect_default                Created                            0.1s
- ✔ Container screenconnect-redis-1              Started                            0.2s
- ✔ Container screenconnect-screenconnect-server-1     Started                            0.2s
- ✔ Container screenconnect-screenconnect-celery-1     Started                            0.3s
- ✔ Container screenconnect-screenconnect-websocket-1  Started                            0.4s
- ✔ Container screenconnect-screenconnect-nginx-1      Started                            0.5s
+ ✔ Container connect-redis-1              Started                            0.2s
+ ✔ Container connect-connect-server-1     Started                            0.2s
+ ✔ Container connect-connect-celery-1     Started                            0.3s
+ ✔ Container connect-connect-websocket-1  Started                            0.4s
+ ✔ Container connect-connect-nginx-1      Started                            0.5s
 ```
 
 > [!NOTE]
@@ -91,18 +91,18 @@ Run the unit tests.
 ```bash
 $ docker compose \
     -f docker-compose.test.yml \
-    exec screenconnect-test bash ./bin/prepare_test_environment.sh -s
+    exec connect-test bash ./bin/prepare_test_environment.sh -s
 
 # Integration and non-integration tests should be run separately as the
 # former doesn't run as expected when run together with the latter.
 
 $ docker compose \
     -f docker-compose.test.yml \
-    exec screenconnect-test ./manage.py test --exclude-tag=integration
+    exec connect-test ./manage.py test --exclude-tag=integration
 
 $ docker compose \
     -f docker-compose.test.yml \
-    exec screenconnect-test ./manage.py test --tag=integration
+    exec connect-test ./manage.py test --tag=integration
 ```
 
 ### The QA checklist
@@ -119,7 +119,7 @@ for details.
 To start [Webpack](https://webpack.js.org/) in development mode, run the following command:
 
 ```bash
-$ docker compose -f docker-compose.dev.yml exec screenconnect-server \
+$ docker compose -f docker-compose.dev.yml exec connect-server \
     npm run dev
 ```
 
@@ -224,7 +224,7 @@ present in a Raspberry Pi with Screenconnect installed.
 ### `/etc/systemd/system/`
 
 * `wifi-connect.service` &mdash; starts the Balena `wifi-connect` program to dynamically set the Wi-Fi config on the device via the captive portal
-* `screenconnect-host-agent.service` &mdash; starts the Python script `host_agent.py`, which subscribes from the Redis component and performs a system call to shutdown or reboot the device when the message is received.
+* `connect-host-agent.service` &mdash; starts the Python script `host_agent.py`, which subscribes from the Redis component and performs a system call to shutdown or reboot the device when the message is received.
 
 ### `/etc/sudoers.d/tccconnect_overrides`
 

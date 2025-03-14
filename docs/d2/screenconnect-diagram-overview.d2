@@ -30,26 +30,26 @@ b.display: "Display (Monitor or TV)" {
   style.3d: true
 }
 
-screenconnect-nginx.class: containers
-b.screenconnect-viewer.class: containers
-a.screenconnect-server.class: containers
-a.screenconnect-websocket.class: containers
-a.screenconnect-celery.class: containers
+connect-nginx.class: containers
+b.connect-viewer.class: containers
+a.connect-server.class: containers
+a.connect-websocket.class: containers
+a.connect-celery.class: containers
 a.redis.class: containers
 
-user -> screenconnect-nginx
-screenconnect-nginx <-> a.screenconnect-server
-screenconnect-nginx -> a.screenconnect-websocket
+user -> connect-nginx
+connect-nginx <-> a.connect-server
+connect-nginx -> a.connect-websocket
 
-a.screenconnect-server <-> a.screenconnect-celery
-a.screenconnect-websocket <-> a.screenconnect-server
-a.screenconnect-celery -> a.redis: "in-memory data"
-a.redis <-> a.screenconnect-server
+a.connect-server <-> a.connect-celery
+a.connect-websocket <-> a.connect-server
+a.connect-celery -> a.redis: "in-memory data"
+a.redis <-> a.connect-server
 
-b.screenconnect-viewer <-> database: "assets data"
+b.connect-viewer <-> database: "assets data"
 
-a.screenconnect-server <-> b.screenconnect-viewer: "assets data"
-a.screenconnect-server <-> database
-a.screenconnect-celery <-> database
+a.connect-server <-> b.connect-viewer: "assets data"
+a.connect-server <-> database
+a.connect-celery <-> database
 
-b.screenconnect-viewer -> b.display: "current asset"
+b.connect-viewer -> b.display: "current asset"

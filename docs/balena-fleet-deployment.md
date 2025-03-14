@@ -68,8 +68,8 @@ Here's a sample output:
 
 ```
 ID      NAME                           VALUE        FLEET
-1979572 BALENA_HOST_CONFIG_dtoverlay    vc4-kms-v3d  gh_nicomiguelino/screenconnect-pi4
-1979571 BALENA_HOST_CONFIG_gpu_mem      1024         gh_nicomiguelino/screenconnect-pi4
+1979572 BALENA_HOST_CONFIG_dtoverlay    vc4-kms-v3d  gh_nicomiguelino/connect-pi4
+1979571 BALENA_HOST_CONFIG_gpu_mem      1024         gh_nicomiguelino/connect-pi4
 ```
 
 > [!TIP]

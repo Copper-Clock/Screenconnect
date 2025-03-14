@@ -1,7 +1,7 @@
 # vim: ft=yaml.docker-compose
 
 services:
-  screenconnect-test:
+  connect-test:
     build:
       context: .
       dockerfile: docker/Dockerfile.test
@@ -14,14 +14,14 @@ services:
     tty: true
     volumes:
       - .:/usr/src/app
-      - screenconnect-data:/data
+      - connect-data:/data
 
-  screenconnect-celery:
+  connect-celery:
     build:
       context: .
       dockerfile: docker/Dockerfile.celery
     depends_on:
-      - screenconnect-test
+      - connect-test
       - redis
     environment:
       - HOME=/data
@@ -29,11 +29,11 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     restart: always
     volumes:
-      - screenconnect-data:/data
+      - connect-data:/data
 
   redis:
     image: redis:alpine
 
 volumes:
-  screenconnect-data:
+  connect-data:
   redis-data:

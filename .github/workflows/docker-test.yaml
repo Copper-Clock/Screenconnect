@@ -81,16 +81,16 @@ jobs:
 
       - name: Set executable permissions for manage.py
         run: |
-          docker compose -f docker-compose.test.yml exec screenconnect-test chmod +x ./manage.py
+          docker compose -f docker-compose.test.yml exec connect-test chmod +x ./manage.py
 
       - name: Run the unit tests inside the container
         run: |
-          docker compose -f docker-compose.test.yml exec screenconnect-test ./manage.py test --noinput --parallel --exclude-tag=integration
+          docker compose -f docker-compose.test.yml exec connect-test ./manage.py test --noinput --parallel --exclude-tag=integration
 
       - name: Run the integration tests inside the container
         run: |
-          docker compose -f docker-compose.test.yml exec screenconnect-test bash ./bin/prepare_test_environment.sh -s
-          docker compose -f docker-compose.test.yml exec screenconnect-test ./manage.py test --noinput --tag=integration
+          docker compose -f docker-compose.test.yml exec connect-test bash ./bin/prepare_test_environment.sh -s
+          docker compose -f docker-compose.test.yml exec connect-test ./manage.py test --noinput --tag=integration
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5

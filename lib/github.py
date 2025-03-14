@@ -139,7 +139,7 @@ def get_latest_docker_hub_hash(device_type):
     trigger Docker image builds.
     """
 
-    url = 'https://hub.docker.com/v2/namespaces/tccconnect/repositories/screenconnect-server/tags'  # noqa: E501
+    url = 'https://hub.docker.com/v2/namespaces/tccconnect/repositories/connect-server/tags'  # noqa: E501
 
     cached_docker_hub_hash = r.get('latest-docker-hub-hash')
 

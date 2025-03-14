@@ -101,16 +101,16 @@ jobs:
 
       - name: Generate OpenAPI Schema
         run: |
-          docker compose -f docker-compose.dev.yml exec screenconnect-server \
+          docker compose -f docker-compose.dev.yml exec connect-server \
             ./manage.py spectacular \
             --format openapi-json \
-            --file screenconnect-api-schema.json
+            --file connect-api-schema.json
 
       - name: Upload the OpenAPI Schema
         uses: actions/upload-artifact@v4
         with:
-          name: screenconnect-api-schema
-          path: screenconnect-api-schema.json
+          name: connect-api-schema
+          path: connect-api-schema.json
 
       - name: Upload the OpenAPI Schema as a release artifact
         if: github.event_name == 'workflow_dispatch' && inputs.release == true
@@ -118,7 +118,7 @@ jobs:
         with:
           allowUpdates: true
           prerelease: true
-          artifacts: screenconnect-api-schema.json
+          artifacts: connect-api-schema.json
           tag: ${{ inputs.tag }}
           commit: ${{ inputs.commit }}
 

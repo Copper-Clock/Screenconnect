@@ -38,7 +38,7 @@ void View::loadImage(const QString &preUri)
 
         QUrl url;
         url.setScheme("http");
-        url.setHost("screenconnect-nginx");
+        url.setHost("connect-nginx");
         url.setPath("/tccconnect_assets/" + fileInfo.fileName());
 
         src = url.toString();

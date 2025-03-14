@@ -18,7 +18,7 @@ use the `docker-compose logs` command.
 For instance, the command below will show you the logs from the server container:
 
 ```bash
-$ docker logs -f tccconnect-screenconnect-server-1
+$ docker logs -f tccconnect-connect-server-1
 ```
 
 If you'd want to see the logs from other containers, simply replace the name
@@ -27,13 +27,13 @@ of the container in the command above. Here's a table of the available container
 <!-- create a two-column table -->
 | Container Name | Description |
 | -------------- | ----------- |
-| `tccconnect-screenconnect-nginx-1` | NGINX service |
-| `tccconnect-screenconnect-viewer-1` | Viewer service |
-| `tccconnect-screenconnect-celery-1` | Celery service |
-| `tccconnect-screenconnect-websocket-1` | WebSocket service |
-| `tccconnect-screenconnect-server-1` | web UI (front-end and back-end) |
-| `tccconnect-screenconnect-redis-1` | Redis (database, cache, message broker) |
-| `tccconnect-screenconnect-wifi-connect-1` | Wi-Fi connectivity |
+| `tccconnect-connect-nginx-1` | NGINX service |
+| `tccconnect-connect-viewer-1` | Viewer service |
+| `tccconnect-connect-celery-1` | Celery service |
+| `tccconnect-connect-websocket-1` | WebSocket service |
+| `tccconnect-connect-server-1` | web UI (front-end and back-end) |
+| `tccconnect-connect-redis-1` | Redis (database, cache, message broker) |
+| `tccconnect-connect-wifi-connect-1` | Wi-Fi connectivity |
 
 ### Using `docker-compose logs`
 
@@ -50,7 +50,7 @@ you can run the following:
 
 ```bash
 $ docker compose logs -f ${SERVICE_NAME}
-# e.g., docker compose logs -f screenconnect-server
+# e.g., docker compose logs -f connect-server
 ```
 
 Check out [this section](/docs/developer-documentation.md#understanding-the-components-that-make-up-screenconnect) of the Developer documentation page for the list of available services.

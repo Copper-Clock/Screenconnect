@@ -1,13 +1,13 @@
 # vim: ft=yaml.docker-compose
 
 services:
-  screenconnect-wifi-connect:
-    image: tccconnect/screenconnect-wifi-connect:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-wifi-connect:
+    image: tccconnect/connect-wifi-connect:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.wifi-connect
     depends_on:
-      - screenconnect-viewer
+      - connect-viewer
     environment:
       PORTAL_LISTENING_PORT: 8000
       CHECK_CONN_FREQ: 10
@@ -20,8 +20,8 @@ services:
         source: /run/dbus/system_bus_socket
         target: /run/dbus/system_bus_socket
 
-  screenconnect-server:
-    image: tccconnect/screenconnect-server:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-server:
+    image: tccconnect/connect-server:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.server
@@ -46,19 +46,19 @@ services:
     labels:
       io.balena.features.supervisor-api: '1'
 
-  screenconnect-viewer:
-    image: tccconnect/screenconnect-viewer:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-viewer:
+    image: tccconnect/connect-viewer:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.viewer
     mem_limit: ${VIEWER_MEMORY_LIMIT_KB}k
     depends_on:
-      - screenconnect-server
+      - connect-server
     environment:
       - HOME=/data
       - PORT=80
       - NOREFRESH=1
-      - LISTEN=screenconnect-nginx
+      - LISTEN=connect-nginx
     extra_hosts:
       - "host.docker.internal:host-gateway"
     privileged: true
@@ -74,13 +74,13 @@ services:
     labels:
       io.balena.features.supervisor-api: '1'
 
-  screenconnect-websocket:
-    image: tccconnect/screenconnect-websocket:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-websocket:
+    image: tccconnect/connect-websocket:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.websocket
     depends_on:
-      - screenconnect-server
+      - connect-server
     environment:
       - HOME=/data
       - LISTEN=0.0.0.0
@@ -92,13 +92,13 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 
-  screenconnect-celery:
-    image: tccconnect/screenconnect-celery:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-celery:
+    image: tccconnect/connect-celery:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.celery
     depends_on:
-      - screenconnect-server
+      - connect-server
       - redis
     environment:
       - HOME=/data
@@ -117,7 +117,7 @@ services:
       io.balena.features.supervisor-api: '1'
 
   redis:
-    image: tccconnect/screenconnect-redis:${DOCKER_TAG}-${DEVICE_TYPE}
+    image: tccconnect/connect-redis:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.redis
@@ -127,8 +127,8 @@ services:
     volumes:
       - redis-data:/var/lib/redis
 
-  screenconnect-nginx:
-    image: tccconnect/screenconnect-nginx:${DOCKER_TAG}-${DEVICE_TYPE}
+  connect-nginx:
+    image: tccconnect/connect-nginx:${DOCKER_TAG}-${DEVICE_TYPE}
     build:
       context: .
       dockerfile: docker/Dockerfile.nginx
@@ -137,8 +137,8 @@ services:
     environment:
       - HOME=/data
     depends_on:
-      - screenconnect-server
-      - screenconnect-websocket
+      - connect-server
+      - connect-websocket
     restart: always
     volumes:
       - resin-data:/data:ro

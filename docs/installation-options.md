@@ -6,7 +6,7 @@
 > * [Release images](#using-the-images-from-the-releases)
 > * [Manual installation](#installing-on-raspberry-pi-os-lite-or-debian)
 
-The quickest way to get started on supported devices is to use [Raspberry Pi Imager](https://www.tccconnect.io/blog/2022/12/13/screenconnect-and-tccconnect-now-in-rpi-imager/), where you can find Screenconnect under `Other specific-purpose OS`.
+The quickest way to get started on supported devices is to use [Raspberry Pi Imager](https://www.tccconnect.io/blog/2022/12/13/connect-and-tccconnect-now-in-rpi-imager/), where you can find Screenconnect under `Other specific-purpose OS`.
 
 ![imager-01](/docs/images/imager-01.png)
 
@@ -25,11 +25,11 @@ Balena made a [big update to their IoT marketplace](https://blog.balena.io/creat
 [Fleets for Good](https://hub.balena.io/fleets-for-good). With that, you may find it hard to find the Screenconnect images on the marketplace. In the meantime,
 here are the links to the images:
 
-* [Raspberry Pi 5](https://hub.balena.io/fleets-for-good/2209774/screenconnect-pi5)
-* [Raspberry Pi 4](https://hub.balena.io/fleets-for-good/1971389/screenconnect-pi4)
-* [Raspberry Pi 3](https://hub.balena.io/fleets-for-good/1971388/screenconnect-pi3)
-* [Raspberry Pi 2](https://hub.balena.io/fleets-for-good/1971385/screenconnect-pi2)
-* [Raspberry Pi 1](https://hub.balena.io/fleets-for-good/1971378/screenconnect-pi1)
+* [Raspberry Pi 5](https://hub.balena.io/fleets-for-good/2209774/connect-pi5)
+* [Raspberry Pi 4](https://hub.balena.io/fleets-for-good/1971389/connect-pi4)
+* [Raspberry Pi 3](https://hub.balena.io/fleets-for-good/1971388/connect-pi3)
+* [Raspberry Pi 2](https://hub.balena.io/fleets-for-good/1971385/connect-pi2)
+* [Raspberry Pi 1](https://hub.balena.io/fleets-for-good/1971378/connect-pi1)
 
 Go to one of the links above and click the *Join* button, then select either *Ethernet only* or *Wifi + Ethernet* for Network options.
 You can either click the *Flash* button to open balenaEthcher (make sure that it's installed) or download the image file and flash it using your preferred imager.
@@ -82,7 +82,7 @@ You can either use the arrow keys to select your choice and then press Enter or 
 (for yes-no questions). The installer will display your responses before proceeding with the
 installation.
 
-![install-screenconnect-gif](/docs/images/install-screenconnect.gif)
+![install-connect-gif](/docs/images/install-screenconnect.gif)
 
 **This installation will take 15 minutes to several hours**, depending on variables such as:
 

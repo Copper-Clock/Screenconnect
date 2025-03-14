@@ -46,7 +46,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'screenconnect',
-    'screenconnect-server'
+    'connect-server'
 ]
 
 CSRF_TRUSTED_ORIGINS = [

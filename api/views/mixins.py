@@ -48,7 +48,7 @@ class BackupViewMixin(APIView):
         responses={
             201: {
                 'type': 'string',
-                'example': 'screenconnect-backup-2021-09-16T15-00-00.tar.gz',
+                'example': 'connect-backup-2021-09-16T15-00-00.tar.gz',
                 'description': 'Backup file name'
             }
         }

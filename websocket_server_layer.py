@@ -38,7 +38,7 @@ class ScreenconnectServerListener(Thread):
         socket_incoming = self.context.socket(zmq.SUB)
         socket_outgoing = self.context.socket(zmq.PUB)
 
-        socket_incoming.connect('tcp://screenconnect-server:10001')
+        socket_incoming.connect('tcp://connect-server:10001')
         socket_outgoing.bind('inproc://queue')
 
         socket_incoming.setsockopt(zmq.SUBSCRIBE, b'')

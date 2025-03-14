@@ -530,7 +530,7 @@ def main():
 
     setup()
 
-    subscriber_1 = ZmqSubscriber('tcp://screenconnect-server:10001')
+    subscriber_1 = ZmqSubscriber('tcp://connect-server:10001')
     subscriber_1.daemon = True
     subscriber_1.start()
 

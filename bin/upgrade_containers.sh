@@ -49,12 +49,12 @@ fi
 if [[ -n $(docker ps | grep srly-ose) ]]; then
     # @TODO: Rename later
     set +e
-    docker container rename srly-ose-wifi-connect screenconnect-wifi-connect
-    docker container rename srly-ose-server screenconnect-server
-    docker container rename srly-ose-viewer screenconnect-viewer
-    docker container rename srly-ose-celery screenconnect-celery
-    docker container rename srly-ose-websocket screenconnect-websocket
-    docker container rename srly-ose-nginx screenconnect-nginx
+    docker container rename srly-ose-wifi-connect connect-wifi-connect
+    docker container rename srly-ose-server connect-server
+    docker container rename srly-ose-viewer connect-viewer
+    docker container rename srly-ose-celery connect-celery
+    docker container rename srly-ose-websocket connect-websocket
+    docker container rename srly-ose-nginx connect-nginx
     set -e
 fi
 
