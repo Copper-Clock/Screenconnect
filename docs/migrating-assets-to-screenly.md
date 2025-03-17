@@ -34,6 +34,6 @@ Before running the script, you should prepare the following:
 
 Run the assets migration script. Follow through the instructions & prompts carefully.
 
-```bash
-$ python tools/migrate_assets_to_tccconnect.py
-```
+# ```bash
+# $ python tools/migrate_assets_to_tccconnect.py
+# ```
