@@ -92,10 +92,10 @@ jobs:
           docker compose -f docker-compose.test.yml exec connect-test bash ./bin/prepare_test_environment.sh -s
           docker compose -f docker-compose.test.yml exec connect-test ./manage.py test --noinput --tag=integration
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#      - name: Upload coverage reports to Codecov
+#        uses: codecov/codecov-action@v5
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Stop the test container
         run: |
