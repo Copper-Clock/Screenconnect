@@ -69,7 +69,8 @@ def remote_branch_available(branch):
 
     try:
         resp = requests_get(
-            'https://api.github.com/repos/tccconnect/screenconnect/branches',
+            'https://api.github.com/repos/Copper-Clock/Screenconnect/branches',
+            ## 'https://api.github.com/repos/tccconnect/screenconnect/branches',
             headers={
                 'Accept': 'application/vnd.github.loki-preview+json',
             },
@@ -115,7 +116,7 @@ def fetch_remote_hash():
             return None, False
         try:
             resp = requests_get(
-                f'https://api.github.com/repos/tccconnect/screenconnect/git/refs/heads/{branch}',  # noqa: E501
+                f'https://api.github.com/repos/Copper-Clock/Screenconnect/git/refs/heads/{branch}',  # noqa: E501
                 timeout=DEFAULT_REQUESTS_TIMEOUT
             )
             resp.raise_for_status()
