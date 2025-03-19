@@ -1,5 +1,5 @@
 #!/bin/bash
-##
+#
 # Fixes permission on /dev/vchiq
 chgrp -f video /dev/vchiq
 chmod -f g+rwX /dev/vchiq
