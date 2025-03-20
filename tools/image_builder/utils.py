@@ -102,7 +102,7 @@ def get_viewer_context(board: str) -> dict:
     releases_url = f'{GITHUB_REPO_URL}/releases/download'
 
     webview_git_hash = '05b13f70'
-    webview_base_url = f'{releases_url}/WebView-v0.3.5'
+    webview_base_url = f'{releases_url}/WebView-v0.3.5b'
 
     qt_version = '5.15.14'
 
