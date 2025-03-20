@@ -82,11 +82,11 @@ jobs:
       - name: Set executable permissions for manage.py
         run: |
           docker compose -f docker-compose.test.yml exec connect-test chmod +x ./manage.py
-
+# Ty removed
 #      - name: Run the unit tests inside the container
 #        run: |
 #          docker compose -f docker-compose.test.yml exec connect-test ./manage.py test --noinput --parallel --exclude-tag=integration
-
+#
 #      - name: Run the integration tests inside the container
 #        run: |
 #          docker compose -f docker-compose.test.yml exec connect-test bash ./bin/prepare_test_environment.sh -s
