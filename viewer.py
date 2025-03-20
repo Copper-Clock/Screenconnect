@@ -368,7 +368,7 @@ def load_browser():
     global browser
     logging.info('Loading browser...')
 
-    browser = sh.Command('Copper-ClockWebview')(_bg=True, _err_to_out=True)
+    browser = sh.Command('TccconnectWebview')(_bg=True, _err_to_out=True)
     while (
         'Connect service start' not in browser.process.stdout.decode('utf-8')
     ):
@@ -487,7 +487,7 @@ def setup():
     load_browser()
 
     bus = pydbus.SessionBus()
-    browser_bus = bus.get('tccconnect.webview', '/Copper-Clock')
+    browser_bus = bus.get('tccconnect.webview', '/tccconnect')
 
 
 def wait_for_node_ip(seconds):

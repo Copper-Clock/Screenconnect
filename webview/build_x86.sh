@@ -121,9 +121,9 @@ function create_webview_archive() {
     make -j${CORE_COUNT}
     make install
 
-    mkdir -p fakeroot/bin fakeroot/share/Copper-ClockWebview
-    mv Copper-ClockWebview fakeroot/bin/
-    cp -rf /webview/res fakeroot/share/Copper-ClockWebview/
+    mkdir -p fakeroot/bin fakeroot/share/TccconnectWebview
+    mv TccconnectWebview fakeroot/bin/
+    cp -rf /webview/res fakeroot/share/TccconnectWebview/
 
     cd fakeroot
 

@@ -65,9 +65,9 @@ function build_qt () {
     make -j"$MAKE_CORES"
     make install
 
-    mkdir -p fakeroot/bin fakeroot/share/Copper-ClockWebview
-    mv Copper-ClockWebview fakeroot/bin/
-    cp -rf /webview/res fakeroot/share/Copper-ClockWebview/
+    mkdir -p fakeroot/bin fakeroot/share/TccconnectWebview
+    mv TccconnectWebview fakeroot/bin/
+    cp -rf /webview/res fakeroot/share/TccconnectWebview/
 
     pushd fakeroot
     tar cfz "$BUILD_TARGET/webview-$QT_VERSION-$DEBIAN_VERSION-$1-$GIT_HASH.tar.gz" .
