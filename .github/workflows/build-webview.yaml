@@ -53,7 +53,8 @@ jobs:
     needs: build-docker-image
     strategy:
       matrix:
-        board: ['pi1', 'pi2', 'pi3', 'pi4']
+        # board: ['pi1', 'pi2', 'pi3', 'pi4']
+        board: ['pi4']
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout

@@ -24,7 +24,8 @@ jobs:
   balena-build-images:
     strategy:
       matrix:
-        board: ['pi1', 'pi2', 'pi3', 'pi4', 'pi5']
+        # board: ['pi1', 'pi2', 'pi3', 'pi4', 'pi5']
+        board: ['pi4', 'pi5']
     runs-on: ubuntu-24.04
     permissions:
       contents: write
