@@ -116,12 +116,9 @@ RUN apt-get update && \
         flex \
         freetds-dev \
         g++ \
-        g++-multilib \
-        gcc-multilib \
         git \
         gperf \
         gyp \
-        lib32z1-dev \
         libasound2 \
         libasound2-dev \
         libavcodec-dev \

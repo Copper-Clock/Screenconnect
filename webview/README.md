@@ -9,10 +9,11 @@ Since our entire build environment resides inside a Docker container, you don't 
 
 ```bash
 $ cd webview
-$ docker buildx build \
-    --load \
-    --build-arg GIT_HASH=$(git rev-parse --short HEAD) \
-    -t qt-builder .
+$ #docker buildx build \
+  #  --load \
+  #  --build-arg GIT_HASH=$(git rev-parse --short HEAD) \
+  #  -t qt-builder .
+$ docker buildx build --platform linux/arm64 -t qt-builder .
 ```
 
 Start the builder container with the following command:
