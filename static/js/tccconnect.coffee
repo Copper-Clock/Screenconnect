@@ -1,6 +1,6 @@
 ### connect ui ###
 
-import '../sass/connect.scss'
+import '../sass/tccconnect.scss'
 
 $().ready ->
   $('#subsribe-form-container').popover content: get_template 'subscribe-form'

@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'connect': './static/js/connect.coffee',
+    'connect': './static/js/tccconnect.coffee',
     'settings': './static/js/settings.coffee',
   },
   output: {
@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/connect.css'
+      filename: 'css/tccconnect.css'
     })
   ],
   module: {

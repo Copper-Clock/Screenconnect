@@ -1,4 +1,4 @@
-import '../sass/connect.scss'
+import '../sass/tccconnect.scss'
 
 $().ready ->
 
