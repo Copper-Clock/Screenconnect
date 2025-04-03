@@ -32,7 +32,7 @@ $ GIT_HASH=$(git rev-parse --short HEAD) \
 You should now be able to invoke a run executing either of the following commands:
 
 ```bash
-$ docker compose -f docker-compose.pi5.yml exec builder /webview/build_pi5.sh
+$  docker compose -f docker-compose.pi5.yml exec builder /scripts/build_pi5_webview.sh
 ```
 
 ```bash
