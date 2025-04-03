@@ -81,7 +81,7 @@ jobs:
 
       - name: Set executable permissions for manage.py
         run: |
-          docker compose -f docker-compose.test.yml exec connect-test chmod +x ./manage.py
+          docker compose -f docker-compose.test.yml exec anthias-test chmod +x ./manage.py
 # Ty removed
 #      - name: Run the unit tests inside the container
 #        run: |
