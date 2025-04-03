@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 set -euo pipefail
 
 BUILDER_DOCKERFILE='docker/Dockerfile.dev'
