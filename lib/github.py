@@ -69,7 +69,7 @@ def remote_branch_available(branch):
 
     try:
         resp = requests_get(
-            'https://api.github.com/repos/screenly/anthias/branches',
+            'https://api.github.com/repos/Copper-Clock/Screenconnect/branches',
             headers={
                 'Accept': 'application/vnd.github.loki-preview+json',
             },
@@ -139,7 +139,7 @@ def get_latest_docker_hub_hash(device_type):
     trigger Docker image builds.
     """
 
-    url = 'https://hub.docker.com/v2/namespaces/screenly/repositories/anthias-server/tags'  # noqa: E501
+    url = 'https://hub.docker.com/v2/namespaces/tccconnect/repositories/anthias-server/tags'  # noqa: E501
 
     cached_docker_hub_hash = r.get('latest-docker-hub-hash')
 
