@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - '**'
+      - '!.editorconfig'
       - '!webview/**'
       - '!website/**'
       - '!.github/workflows/deploy-website.yaml'
@@ -96,21 +97,18 @@ jobs:
         run: |
           docker compose -f docker-compose.dev.yml up -d
 
-      - name: Set execute permissions for manage.py
-        run: chmod +x ./manage.py
-
       - name: Generate OpenAPI Schema
         run: |
-          docker compose -f docker-compose.dev.yml exec connect-server \
+          docker compose -f docker-compose.dev.yml exec anthias-server \
             ./manage.py spectacular \
             --format openapi-json \
-            --file connect-api-schema.json
+            --file anthias-api-schema.json
 
       - name: Upload the OpenAPI Schema
         uses: actions/upload-artifact@v4
         with:
-          name: connect-api-schema
-          path: connect-api-schema.json
+          name: anthias-api-schema
+          path: anthias-api-schema.json
 
       - name: Upload the OpenAPI Schema as a release artifact
         if: github.event_name == 'workflow_dispatch' && inputs.release == true
@@ -118,7 +116,6 @@ jobs:
         with:
           allowUpdates: true
           prerelease: true
-          artifacts: connect-api-schema.json
+          artifacts: anthias-api-schema.json
           tag: ${{ inputs.tag }}
           commit: ${{ inputs.commit }}
-
