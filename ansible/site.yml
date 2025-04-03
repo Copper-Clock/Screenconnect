@@ -1,4 +1,4 @@
-- name: Install Screenconnect
+- name: Install Anthias
   hosts: all
   user: "{{ lookup('env', 'USER') }}"
   become: true
@@ -9,6 +9,6 @@
 
   roles:
     - system
-    - tccconnect
+    - screenly
     - network
     - splashscreen

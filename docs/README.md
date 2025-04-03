@@ -1,6 +1,6 @@
 # Documentation
 
-## How to get logs from Screenconnect
+## How to get logs from Anthias
 
 SSH into your Raspberry Pi. For instance, if you've set `pi` for the username
 and `raspberrypi` for the hostname, then run:
@@ -9,7 +9,7 @@ and `raspberrypi` for the hostname, then run:
 $ ssh pi@raspberrypi
 ```
 
-Screenconnect makes use of Docker for containerization. To get the logs from the
+Anthias makes use of Docker for containerization. To get the logs from the
 containers, you can either make use of the `docker logs` command or you can
 use the `docker-compose logs` command.
 
@@ -18,7 +18,7 @@ use the `docker-compose logs` command.
 For instance, the command below will show you the logs from the server container:
 
 ```bash
-$ docker logs -f tccconnect-connect-server-1
+$ docker logs -f screenly-anthias-server-1
 ```
 
 If you'd want to see the logs from other containers, simply replace the name
@@ -27,22 +27,22 @@ of the container in the command above. Here's a table of the available container
 <!-- create a two-column table -->
 | Container Name | Description |
 | -------------- | ----------- |
-| `tccconnect-connect-nginx-1` | NGINX service |
-| `tccconnect-connect-viewer-1` | Viewer service |
-| `tccconnect-connect-celery-1` | Celery service |
-| `tccconnect-connect-websocket-1` | WebSocket service |
-| `tccconnect-connect-server-1` | web UI (front-end and back-end) |
-| `tccconnect-connect-redis-1` | Redis (database, cache, message broker) |
-| `tccconnect-connect-wifi-connect-1` | Wi-Fi connectivity |
+| `screenly-anthias-nginx-1` | NGINX service |
+| `screenly-anthias-viewer-1` | Viewer service |
+| `screenly-anthias-celery-1` | Celery service |
+| `screenly-anthias-websocket-1` | WebSocket service |
+| `screenly-anthias-server-1` | web UI (front-end and back-end) |
+| `screenly-anthias-redis-1` | Redis (database, cache, message broker) |
+| `screenly-anthias-wifi-connect-1` | Wi-Fi connectivity |
 
 ### Using `docker-compose logs`
 
 > [!IMPORTANT]
 > Before running the succeeding commands, make sure that you're in the
-> `/home/${USER}/tccconnect` directory:
+> `/home/${USER}/screenly` directory:
 > 
 > ```bash
-> $ cd /home/${USER}/tccconnect # e.g., /home/pi/tccconnect if the user is `pi`
+> $ cd /home/${USER}/screenly # e.g., /home/pi/screenly if the user is `pi`
 > ```
 
 If you'd like to see the logs of a specific container or service via Docker Compose,
@@ -50,27 +50,27 @@ you can run the following:
 
 ```bash
 $ docker compose logs -f ${SERVICE_NAME}
-# e.g., docker compose logs -f connect-server
+# e.g., docker compose logs -f anthias-server
 ```
 
-Check out [this section](/docs/developer-documentation.md#understanding-the-components-that-make-up-connect) of the Developer documentation page for the list of available services.
+Check out [this section](/docs/developer-documentation.md#understanding-the-components-that-make-up-anthias) of the Developer documentation page for the list of available services.
 
 ## Enabling SSH
 
 See [the official documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 
-## Updating Screenconnect
+## Updating Anthias
 
 Run the following command in your console:
 
 ```bash
-$ bash <(curl -sL https://install-connect.srly.io)
+$ bash <(curl -sL https://install-anthias.srly.io)
 ```
 
 Alternatively, you can also run the following command:
 
 ```bash
-$ $HOME/tccconnect/bin/run_upgrade.sh
+$ $HOME/screenly/bin/run_upgrade.sh
 ```
 
 ## Accessing the REST API
@@ -85,7 +85,7 @@ if you're in development mode). You should see the API docs for the endpoints.
 > With running the following script, you can install self-signed certificates:
 > 
 > ```bash
-> $ cd $HOME/tccconnect
+> $ cd $HOME/screenly
 > $ ./bin/add_certificate.sh /path/to/certificate.crt
 > ```
 

@@ -32,7 +32,7 @@ try:
 
     from django.utils import timezone
 
-    from connect_app.models import Asset
+    from anthias_app.models import Asset
     from lib.utils import (
         connect_to_redis,
         get_balena_device_info,
@@ -48,16 +48,16 @@ except Exception:
 standard_library.install_aliases()
 
 
-__author__ = "Copper-Clock, Inc"
-__copyright__ = "Copyright 2012-2024, Copper-Clock, Inc"
+__author__ = "Screenly, Inc"
+__copyright__ = "Copyright 2012-2024, Screenly, Inc"
 __license__ = "Dual License: GPLv2 and Commercial License"
 
 
 SPLASH_DELAY = 60  # secs
 EMPTY_PL_DELAY = 5  # secs
 
-INITIALIZED_FILE = '/.tccconnect/initialized'
-WATCHDOG_PATH = '/tmp/tccconnect.watchdog'
+INITIALIZED_FILE = '/.screenly/initialized'
+WATCHDOG_PATH = '/tmp/screenly.watchdog'
 
 STANDBY_SCREEN = f'http://{LISTEN}:{PORT}/static/img/standby.png'
 SPLASH_PAGE_URL = f'http://{LISTEN}:{PORT}/splash-page'
@@ -368,9 +368,9 @@ def load_browser():
     global browser
     logging.info('Loading browser...')
 
-    browser = sh.Command('TccconnectWebview')(_bg=True, _err_to_out=True)
+    browser = sh.Command('ScreenlyWebview')(_bg=True, _err_to_out=True)
     while (
-        'Connect service start' not in browser.process.stdout.decode('utf-8')
+        'Screenly service start' not in browser.process.stdout.decode('utf-8')
     ):
         sleep(1)
 
@@ -487,7 +487,7 @@ def setup():
     load_browser()
 
     bus = pydbus.SessionBus()
-    browser_bus = bus.get('tccconnect.webview', '/tccconnect')
+    browser_bus = bus.get('screenly.webview', '/Screenly')
 
 
 def wait_for_node_ip(seconds):
@@ -530,7 +530,7 @@ def main():
 
     setup()
 
-    subscriber_1 = ZmqSubscriber('tcp://connect-server:10001')
+    subscriber_1 = ZmqSubscriber('tcp://anthias-server:10001')
     subscriber_1.daemon = True
     subscriber_1.start()
 

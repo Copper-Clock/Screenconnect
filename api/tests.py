@@ -10,13 +10,13 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from unittest_parametrize import ParametrizedTestCase, parametrize
 
-from connect_app.models import Asset
-from settings import settings as connect_settings
+from anthias_app.models import Asset
+from settings import settings as anthias_settings
 
 ASSET_LIST_V1_1_URL = reverse('api:asset_list_v1_1')
 ASSET_CREATION_DATA = {
-    'name': 'Screenconnect',
-    'uri': 'https://cms.copperclockwifi.com',
+    'name': 'Anthias',
+    'uri': 'https://anthias.screenly.io',
     'start_date': '2019-08-24T14:15:22Z',
     'end_date': '2029-08-24T14:15:22Z',
     'duration': 20,
@@ -27,8 +27,8 @@ ASSET_CREATION_DATA = {
     'skip_asset_check': 0
 }
 ASSET_UPDATE_DATA_V1_2 = {
-    'name': 'Screenconnect',
-    'uri': 'https://cms.copperclockwifi.com',
+    'name': 'Anthias',
+    'uri': 'https://anthias.screenly.io',
     'start_date': '2019-08-24T14:15:22Z',
     'end_date': '2029-08-24T14:15:22Z',
     'duration': '15',
@@ -112,8 +112,8 @@ class CRUDAssetEndpointsTest(TestCase, ParametrizedTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        self.assertEqual(response.data['name'], 'Screenconnect')
-        self.assertEqual(response.data['uri'], 'https://cms.copperclockwifi.com')
+        self.assertEqual(response.data['name'], 'Anthias')
+        self.assertEqual(response.data['uri'], 'https://anthias.screenly.io')
         self.assertEqual(response.data['is_enabled'], 0)
         self.assertEqual(response.data['nocache'], 0)
         self.assertEqual(response.data['play_order'], 0)
@@ -150,8 +150,8 @@ class CRUDAssetEndpointsTest(TestCase, ParametrizedTestCase):
             version=version,
         )
 
-        self.assertEqual(updated_asset['name'], 'Screenconnect')
-        self.assertEqual(updated_asset['uri'], 'https://cms.copperclockwifi.com')
+        self.assertEqual(updated_asset['name'], 'Anthias')
+        self.assertEqual(updated_asset['uri'], 'https://anthias.screenly.io')
         self.assertEqual(updated_asset['duration'], data['duration'])
         self.assertEqual(updated_asset['is_enabled'], data['is_enabled'])
         self.assertEqual(updated_asset['play_order'], data['play_order'])
@@ -176,7 +176,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         self.remove_all_asset_files()
 
     def remove_all_asset_files(self):
-        asset_directory_path = Path(connect_settings['assetdir'])
+        asset_directory_path = Path(anthias_settings['assetdir'])
         for file in asset_directory_path.iterdir():
             file.unlink()
 
@@ -192,7 +192,7 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['type'], 'url')
-        self.assertEqual(data['url'], 'https://cms.copperclockwifi.com')
+        self.assertEqual(data['url'], 'https://anthias.screenly.io')
 
     def test_file_asset(self):
         project_base_path = django_settings.BASE_DIR
@@ -291,26 +291,26 @@ class V1EndpointsTest(TestCase, ParametrizedTestCase):
         self.assertEqual(data['viewlog'], 'Not yet implemented')
 
     @mock.patch(
-        'api.views.mixins.reboot_connect.apply_async',
+        'api.views.mixins.reboot_anthias.apply_async',
         side_effect=(lambda: None)
     )
-    def test_reboot(self, reboot_connect_mock):
+    def test_reboot(self, reboot_anthias_mock):
         reboot_url = reverse('api:reboot_v1')
         response = self.client.post(reboot_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(reboot_connect_mock.call_count, 1)
+        self.assertEqual(reboot_anthias_mock.call_count, 1)
 
     @mock.patch(
-        'api.views.mixins.shutdown_connect.apply_async',
+        'api.views.mixins.shutdown_anthias.apply_async',
         side_effect=(lambda: None)
     )
-    def test_shutdown(self, shutdown_connect_mock):
+    def test_shutdown(self, shutdown_anthias_mock):
         shutdown_url = reverse('api:shutdown_v1')
         response = self.client.post(shutdown_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(shutdown_connect_mock.call_count, 1)
+        self.assertEqual(shutdown_anthias_mock.call_count, 1)
 
     @mock.patch('api.views.v1.ZmqPublisher.send_to_viewer', return_value=None)
     def test_viewer_current_asset(self, send_to_viewer_mock):

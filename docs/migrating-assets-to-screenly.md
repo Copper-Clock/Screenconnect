@@ -1,9 +1,9 @@
-# Migrating assets from Screenconnect to Copper-Clock
+# Migrating assets from Anthias to Screenly
 
 > [!NOTE]
 > This feature is only available in devices running Raspberry Pi OS at the moment.
 
-To get started, SSH to your Raspberry Pi running Screenconnect. For instance:
+To get started, SSH to your Raspberry Pi running Anthias. For instance:
 
 ```bash
 $ ssh pi@raspberrypi
@@ -12,7 +12,7 @@ $ ssh pi@raspberrypi
 Go to the project root directory and create a Python virtual environment, if you haven't created one.
 
 ```bash
-$ cd ~/tccconnect
+$ cd ~/screenly
 $ python -m venv venv/
 ```
 
@@ -29,11 +29,11 @@ $ pip install -r requirements/requirements.local.txt
 ```
 
 Before running the script, you should prepare the following:
-* Your Copper-Clock API key
-* Screenconnect username and password, if your device has basic authentication enabled
+* Your Screenly API key
+* Anthias username and password, if your device has basic authentication enabled
 
 Run the assets migration script. Follow through the instructions & prompts carefully.
 
-# ```bash
-# $ python tools/migrate_assets_to_tccconnect.py
-# ```
+```bash
+$ python tools/migrate_assets_to_screenly.py
+```

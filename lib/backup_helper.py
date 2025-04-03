@@ -6,9 +6,9 @@ import tarfile
 from datetime import datetime
 from os import getenv, makedirs, path, remove
 
-directories = ['.tccconnect', 'tccconnect_assets']
-default_archive_name = "connect-backup"
-static_dir = "tccconnect/staticfiles"
+directories = ['.screenly', 'screenly_assets']
+default_archive_name = "anthias-backup"
+static_dir = "screenly/staticfiles"
 
 
 def create_backup(name=default_archive_name):

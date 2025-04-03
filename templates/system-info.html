@@ -52,19 +52,19 @@
                         <td>{{ device_model }}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Screenconnect Version</th>
+                        <th scope="row">Anthias Version</th>
                         <td>
-                            {% if connect_commit_link %}
+                            {% if anthias_commit_link %}
                                 <a
-                                    href="{{ connect_commit_link }}"
+                                    href="{{ anthias_commit_link }}"
                                     rel="noopener"
                                     target="_blank"
                                     class="text-dark"
                                 >
-                                    {{ connect_version }}
+                                    {{ anthias_version }}
                                 </a>
                             {% else %}
-                                {{ connect_version }}
+                                {{ anthias_version }}
                             {% endif %}
                         </td>
                     </tr>

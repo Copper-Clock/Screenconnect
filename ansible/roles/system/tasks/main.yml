@@ -209,7 +209,7 @@
     update_cache: true
   when: not cdefs_exist
 
-- name: Install Screenconnect dependencies (all platforms)
+- name: Install Anthias dependencies (all platforms)
   ansible.builtin.apt:
     name:
       - bc
@@ -217,7 +217,7 @@
       - python3-redis
     state: present
 
-- name: Install Screenconnect dependencies (Raspberry Pi)
+- name: Install Anthias dependencies (Raspberry Pi)
   ansible.builtin.apt:
     name:
       - rpi-update

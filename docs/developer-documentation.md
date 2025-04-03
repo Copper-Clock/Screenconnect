@@ -1,28 +1,28 @@
 # Developer documentation
 
-## Understanding the components that make up Screenconnect
+## Understanding the components that make up Anthias
 
-Here is a high-level overview of the different components that make Screenconnect:
+Here is a high-level overview of the different components that make Anthias:
 
-![Screenconnect Diagram Overview](/docs/d2/connect-diagram-overview.svg)
+![Anthias Diagram Overview](/docs/d2/anthias-diagram-overview.svg)
 
 These components and their dependencies are mostly installed and handled with Ansible and Docker.
 
-* The **NGINX** component (`connect-nginx`) forwards requests to the backend and serves static files. It also acts as a reverse proxy.
-* The **viewer** (`connect-viewer`) is what drives the screen (e.g., shows web page, image or video).
-* The **web app** component (`connect-server`) &mdash; which consists of the front-end and back-end code &ndash; is what the user interacts with via browser.
-* The **Celery** (`connect-celery`) component is for aynschronouslt queueing and executing tasks outside the HTTP request-response cycle (e.g., doing assets cleanup).
-* The **WebSocket** (`connect-websocket`) component is used for forwarding requests from NGINX to the backend.
+* The **NGINX** component (`anthias-nginx`) forwards requests to the backend and serves static files. It also acts as a reverse proxy.
+* The **viewer** (`anthias-viewer`) is what drives the screen (e.g., shows web page, image or video).
+* The **web app** component (`anthias-server`) &mdash; which consists of the front-end and back-end code &ndash; is what the user interacts with via browser.
+* The **Celery** (`anthias-celery`) component is for aynschronouslt queueing and executing tasks outside the HTTP request-response cycle (e.g., doing assets cleanup).
+* The **WebSocket** (`anthias-websocket`) component is used for forwarding requests from NGINX to the backend.
 * **Redis** (`redis`) is used as a database, cache and message broker.
 * The **database** component uses **SQLite** for storing the assets information.
 
 ## Dockerized development environment
 
-To simplify development of the server module of Screenconnect, we've created a Docker container. This is intended to run on your local machine with the Screenconnect repository mounted as a volume.
+To simplify development of the server module of Anthias, we've created a Docker container. This is intended to run on your local machine with the Anthias repository mounted as a volume.
 
 > [!IMPORTANT]
 > * Make sure that you have [installed Docker](https://docs.docker.com/engine/install/) on your machine before proceeding.
-> * Screenconnect is using Docker's [buildx](https://docs.docker.com/engine/reference/commandline/buildx/) for the image builds. This is used both for cross compilation as well as for local caching. You might need to run `docker buildx create --use` first.
+> * Anthias is using Docker's [buildx](https://docs.docker.com/engine/reference/commandline/buildx/) for the image builds. This is used both for cross compilation as well as for local caching. You might need to run `docker buildx create --use` first.
 
 Assuming you're in the source code repository, simply run:
 
@@ -33,12 +33,12 @@ $ ./bin/start_development_server.sh
 # ...
 
 [+] Running 6/6
- ✔ Network connect_default                Created                            0.1s
- ✔ Container connect-redis-1              Started                            0.2s
- ✔ Container connect-connect-server-1     Started                            0.2s
- ✔ Container connect-connect-celery-1     Started                            0.3s
- ✔ Container connect-connect-websocket-1  Started                            0.4s
- ✔ Container connect-connect-nginx-1      Started                            0.5s
+ ✔ Network anthias_default                Created                            0.1s
+ ✔ Container anthias-redis-1              Started                            0.2s
+ ✔ Container anthias-anthias-server-1     Started                            0.2s
+ ✔ Container anthias-anthias-celery-1     Started                            0.3s
+ ✔ Container anthias-anthias-websocket-1  Started                            0.4s
+ ✔ Container anthias-anthias-nginx-1      Started                            0.5s
 ```
 
 > [!NOTE]
@@ -91,23 +91,23 @@ Run the unit tests.
 ```bash
 $ docker compose \
     -f docker-compose.test.yml \
-    exec connect-test bash ./bin/prepare_test_environment.sh -s
+    exec anthias-test bash ./bin/prepare_test_environment.sh -s
 
 # Integration and non-integration tests should be run separately as the
 # former doesn't run as expected when run together with the latter.
 
 $ docker compose \
     -f docker-compose.test.yml \
-    exec connect-test ./manage.py test --exclude-tag=integration
+    exec anthias-test ./manage.py test --exclude-tag=integration
 
 $ docker compose \
     -f docker-compose.test.yml \
-    exec connect-test ./manage.py test --tag=integration
+    exec anthias-test ./manage.py test --tag=integration
 ```
 
 ### The QA checklist
 
-We've also provided a [checklist](/docs/qa-checklist.md) that can serve as a guide for testing Screenconnect manually.
+We've also provided a [checklist](/docs/qa-checklist.md) that can serve as a guide for testing Anthias manually.
 
 ## Generating CSS and JS files
 
@@ -119,7 +119,7 @@ for details.
 To start [Webpack](https://webpack.js.org/) in development mode, run the following command:
 
 ```bash
-$ docker compose -f docker-compose.dev.yml exec connect-server \
+$ docker compose -f docker-compose.dev.yml exec anthias-server \
     npm run dev
 ```
 
@@ -207,36 +207,36 @@ $ git push --delete origin v0.18.5           [±master ✓]
 ## Directories and files explained
 
 In this section, we'll explain the different directories and files that are
-present in a Raspberry Pi with Screenconnect installed.
+present in a Raspberry Pi with Anthias installed.
 
-### `home/${USER}/tccconnect/`
+### `home/${USER}/screenly/`
 
 * All of the files and folders from the Github repo should be cloned into this directory.
 
-### `/home/${USER}/.tccconnect/`
+### `/home/${USER}/.screenly/`
 
 * `default_assets.yml` &mdash; configuration file which contains the default assets that get added to the assets list if enabled
 * `initialized` &mdash; tells whether access point service (for Wi-Fi connectivity) runs or not
-* `tccconnect.conf` &mdash; configuration file for web interface settings
-* `tccconnect.db` &ndash; database file containing current assets information.
+* `screenly.conf` &mdash; configuration file for web interface settings
+* `screenly.db` &ndash; database file containing current assets information.
 
 
 ### `/etc/systemd/system/`
 
 * `wifi-connect.service` &mdash; starts the Balena `wifi-connect` program to dynamically set the Wi-Fi config on the device via the captive portal
-* `connect-host-agent.service` &mdash; starts the Python script `host_agent.py`, which subscribes from the Redis component and performs a system call to shutdown or reboot the device when the message is received.
+* `anthias-host-agent.service` &mdash; starts the Python script `host_agent.py`, which subscribes from the Redis component and performs a system call to shutdown or reboot the device when the message is received.
 
-### `/etc/sudoers.d/tccconnect_overrides`
+### `/etc/sudoers.d/screenly_overrides`
 
 * `sudoers` configuration file that allows pi user to execute certain `sudo` commands without being a superuser (i.e., `root`)
 
-### `/usr/share/plymouth/themes/connect`
+### `/usr/share/plymouth/themes/anthias`
 
-* `connect.plymouth` &mdash; Plymouth config file (sets module name, `ImageDir` and `ScriptFile` dir)
-* `connect.script` &ndash; plymouth script file that loads and scales the splash screen image during the boot process
+* `anthias.plymouth` &mdash; Plymouth config file (sets module name, `ImageDir` and `ScriptFile` dir)
+* `anthias.script` &ndash; plymouth script file that loads and scales the splash screen image during the boot process
 * `splashscreen.png` &mdash; the spash screen image that is displayed during the boot process
 
-## Debugging the Screenconnect WebView
+## Debugging the Anthias WebView
 
 ```
 export QT_LOGGING_DEBUG=1
@@ -244,7 +244,7 @@ export QT_LOGGING_RULES="*.debug=true"
 export QT_QPA_EGLFS_DEBUG=1
 ```
 
-The Screenconnect WebView is a custom-built web browser based on the [Qt](https://www.qt.io/) toolkit framework.
+The Anthias WebView is a custom-built web browser based on the [Qt](https://www.qt.io/) toolkit framework.
 The browser is assembled with a Dockerfile and built by a `webview/build_qt#.sh` script.
 
-For further info on these files and more, visit the following link: [https://github.com/Copper-Clock/Screenconnect/tree/master/webview](https://github.com/Copper-Clock/Screenconnect/tree/master/webview)
+For further info on these files and more, visit the following link: [https://github.com/Screenly/Anthias/tree/master/webview](https://github.com/Screenly/Anthias/tree/master/webview)

@@ -1,6 +1,6 @@
 from gunicorn.app.base import Application
 
-from connect_django import wsgi
+from anthias_django import wsgi
 from settings import LISTEN, PORT
 
 

@@ -1,12 +1,12 @@
 ---
-- name: Check if tccconnect-network-manager files exist
+- name: Check if screenly-network-manager files exist
   ansible.builtin.stat:
-    path: /usr/sbin/tccconnect_net_mgr.py
-  register: tccconnect_network_manager
+    path: /usr/sbin/screenly_net_mgr.py
+  register: screenly_network_manager
 
-- name: Check if tccconnect-network-manager is set
+- name: Check if screenly-network-manager is set
   ansible.builtin.set_fact:
-    tccconnect_network_manager_exist: "{{ tccconnect_network_manager.stat.exists }}"
+    screenly_network_manager_exist: "{{ screenly_network_manager.stat.exists }}"
 
 - name: Copy network systemd units
   ansible.builtin.template:
@@ -27,37 +27,37 @@
 - name: Disable network manager
   ansible.builtin.systemd:
     state: stopped
-    name: tccconnect-net-manager.service
+    name: screenly-net-manager.service
     enabled: false
-  when: tccconnect_network_manager_exist
+  when: screenly_network_manager_exist
 
 - name: Disable network watchdog
   ansible.builtin.systemd:
     state: stopped
-    name: tccconnect-net-watchdog.timer
+    name: screenly-net-watchdog.timer
     enabled: false
-  when: tccconnect_network_manager_exist
+  when: screenly_network_manager_exist
 
 - name: Remove network manager and watchdog
   ansible.builtin.file:
     state: absent
     path: "/usr/sbin/{{ item }}"
   with_items:
-    - tccconnect_net_mgr.py
-    - tccconnect_net_watchdog.py
+    - screenly_net_mgr.py
+    - screenly_net_watchdog.py
 
 - name: Remove network manager and watchdog unit files
   ansible.builtin.file:
     state: absent
     path: "/etc/systemd/system/{{ item }}"
   with_items:
-    - tccconnect-net-manager.service
-    - tccconnect-net-watchdog.service
+    - screenly-net-manager.service
+    - screenly-net-watchdog.service
 
 - name: Remove network watchdog timer file
   ansible.builtin.file:
     state: absent
-    path: /etc/systemd/system/tccconnect-net-watchdog.timer
+    path: /etc/systemd/system/screenly-net-watchdog.timer
 
 - name: Debug msg for manage network
   ansible.builtin.debug:

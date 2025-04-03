@@ -20,17 +20,17 @@ function main() {
     fi
 
     CERTIFICATE_DIR='/usr/local/share/ca-certificates/custom'
-    CONTAINERS=(connect-server connect-viewer)
+    CONTAINERS=(anthias-server anthias-viewer)
     CERTIFICATE_FILENAME=$(basename $CERTIFICATE_PATH)
 
-    cd $HOME/tccconnect
+    cd $HOME/screenly
 
     for CONTAINER in "${CONTAINERS[@]}"; do
         docker compose exec -it $CONTAINER mkdir -p $CERTIFICATE_DIR
         docker compose cp $CERTIFICATE_PATH $CONTAINER:$CERTIFICATE_DIR
         docker compose exec -it $CONTAINER update-ca-certificates
 
-        if [ "$CONTAINER" == "connect-viewer" ]; then
+        if [ "$CONTAINER" == "anthias-viewer" ]; then
             echo "Running certutil for $CONTAINER..."
             docker compose exec -it $CONTAINER \
                 certutil -A -n "My CA Certificate" -t "C,C,C" \

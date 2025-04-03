@@ -18,18 +18,18 @@ int main(int argc, char *argv[])
 
     QDBusConnection connection = QDBusConnection::sessionBus();
 
-    if (!connection.registerObject("/Copper-Clock", window,  QDBusConnection::ExportAllSlots))
+    if (!connection.registerObject("/Screenly", window,  QDBusConnection::ExportAllSlots))
     {
         qWarning() << "Can't register object";
         return 1;
     }
     qDebug() << "WebView connected to D-bus";
 
-    if (!connection.registerService("tccconnect.webview")) {
+    if (!connection.registerService("screenly.webview")) {
         qWarning() << qPrintable(QDBusConnection::sessionBus().lastError().message());
         return 1;
     }
-    qDebug() << "Copper-Clock service start";
+    qDebug() << "Screenly service start";
 
 
     return app.exec();

@@ -101,14 +101,12 @@ def get_test_context() -> dict:
 def get_viewer_context(board: str) -> dict:
     releases_url = f'{GITHUB_REPO_URL}/releases/download'
 
-    webview_git_hash = '1cf2b89'
-    webview_base_url = f'{releases_url}/WebView-v0.3.5d'
+    webview_git_hash = 'fb2cb9e'
+    webview_base_url = f'{releases_url}/WebView-v0.3.7'
 
     qt_version = '5.15.14'
 
-    if board == 'x86':
-        qt_version = '6.6.3'
-    elif board == 'pi5':
+    if board in ['pi5', 'x86']:
         qt_version = '6.4.2'
     else:
         qt_version = '5.15.14'
@@ -224,7 +222,7 @@ def get_viewer_context(board: str) -> dict:
         'libswscale-dev',
     ]
 
-    if board == 'pi5':
+    if board in ['pi5', 'x86']:
         apt_dependencies.extend([
             'qt6-base-dev',
             'qt6-webengine-dev',

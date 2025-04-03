@@ -147,7 +147,7 @@ class BasicAuth(Auth):
 
     def authenticate(self):
         from django.http import HttpResponse
-        realm = "Screenconnect {}".format(self.settings['player_name'])
+        realm = "Anthias {}".format(self.settings['player_name'])
         return HttpResponse(
             "Access denied",
             status=401,

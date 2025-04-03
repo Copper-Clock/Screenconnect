@@ -1,4 +1,4 @@
-import '../sass/tccconnect.scss'
+import '../sass/anthias.scss'
 
 $().ready ->
 

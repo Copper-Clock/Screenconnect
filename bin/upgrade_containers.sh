@@ -8,7 +8,7 @@ export MY_IP=$(ip -4 route get 8.8.8.8 | awk {'print $7'} | tr -d '\n')
 TOTAL_MEMORY_KB=$(grep MemTotal /proc/meminfo | awk {'print $2'})
 export VIEWER_MEMORY_LIMIT_KB=$(echo "$TOTAL_MEMORY_KB" \* 0.8 | bc)
 export SHM_SIZE_KB="$(echo "$TOTAL_MEMORY_KB" \* 0.3 | bc | cut -d'.' -f1)"
-export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_BRANCH="${GIT_BRANCH:-master}"
 
 MODE="${MODE:-pull}"
 if [[ ! "$MODE" =~ ^(pull|build)$ ]]; then
@@ -33,7 +33,17 @@ elif grep -qF "Raspberry Pi 5" /proc/device-tree/model || grep -qF "Compute Modu
     export DEVICE_TYPE="pi5"
 elif grep -qF "Raspberry Pi 4" /proc/device-tree/model || grep -qF "Compute Module 4" /proc/device-tree/model; then
     if [ "$(getconf LONG_BIT)" = "64" ]; then
-        export DEVICE_TYPE="pi4-64"
+        if [ "$GIT_BRANCH" = "master" ]; then
+            export DEVICE_TYPE="pi4-64"
+        else
+            # Remove 'v' prefix if present for version comparison
+            VERSION_NUM=${GIT_BRANCH#v}
+            if printf '%s\n' "$VERSION_NUM" "0.19.5" | sort -V -C; then
+                export DEVICE_TYPE="pi4"
+            else
+                export DEVICE_TYPE="pi4-64"
+            fi
+        fi
     else
         export DEVICE_TYPE="pi4"
     fi
@@ -49,26 +59,26 @@ fi
 if [[ -n $(docker ps | grep srly-ose) ]]; then
     # @TODO: Rename later
     set +e
-    docker container rename srly-ose-wifi-connect connect-wifi-connect
-    docker container rename srly-ose-server connect-server
-    docker container rename srly-ose-viewer connect-viewer
-    docker container rename srly-ose-celery connect-celery
-    docker container rename srly-ose-websocket connect-websocket
-    docker container rename srly-ose-nginx connect-nginx
+    docker container rename srly-ose-wifi-connect anthias-wifi-connect
+    docker container rename srly-ose-server anthias-server
+    docker container rename srly-ose-viewer anthias-viewer
+    docker container rename srly-ose-celery anthias-celery
+    docker container rename srly-ose-websocket anthias-websocket
+    docker container rename srly-ose-nginx anthias-nginx
     set -e
 fi
 
-cat /home/${USER}/tccconnect/docker-compose.yml.tmpl \
+cat /home/${USER}/screenly/docker-compose.yml.tmpl \
     | envsubst \
-    > /home/${USER}/tccconnect/docker-compose.yml
+    > /home/${USER}/screenly/docker-compose.yml
 
 if [[ "$DEVICE_TYPE" =~ ^(x86|pi5)$ ]]; then
     sed -i '/devices:/ {N; /\n.*\/dev\/vchiq:\/dev\/vchiq/d}' \
-        /home/${USER}/tccconnect/docker-compose.yml
+        /home/${USER}/screenly/docker-compose.yml
 fi
 
 sudo -E docker compose \
-    -f /home/${USER}/tccconnect/docker-compose.yml \
+    -f /home/${USER}/screenly/docker-compose.yml \
     ${MODE}
 
 if [ -f /var/run/reboot-required ]; then
@@ -76,5 +86,5 @@ if [ -f /var/run/reboot-required ]; then
 fi
 
 sudo -E docker compose \
-    -f /home/${USER}/tccconnect/docker-compose.yml \
+    -f /home/${USER}/screenly/docker-compose.yml \
     up -d

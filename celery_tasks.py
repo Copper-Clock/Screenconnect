@@ -22,8 +22,8 @@ except Exception:
     pass
 
 
-__author__ = "Copper-Clock, Inc"
-__copyright__ = "Copyright 2012-2024, Copper-Clock, Inc"
+__author__ = "Screenly, Inc"
+__copyright__ = "Copyright 2012-2024, Screenly, Inc"
 __license__ = "Dual License: GPLv2 and Commercial License"
 
 
@@ -34,7 +34,7 @@ CELERY_TASK_RESULT_EXPIRES = timedelta(hours=6)
 
 r = connect_to_redis()
 celery = Celery(
-    'Screenconnect Celery Worker',
+    'Anthias Celery Worker',
     backend=CELERY_RESULT_BACKEND,
     broker=CELERY_BROKER_URL,
     result_expires=CELERY_TASK_RESULT_EXPIRES
@@ -57,14 +57,14 @@ def get_display_power():
 @celery.task
 def cleanup():
     sh.find(
-        path.join(getenv('HOME'), 'tccconnect_assets'),
+        path.join(getenv('HOME'), 'screenly_assets'),
         '-name', '*.tmp', '-delete')
 
 
 @celery.task
-def reboot_connect():
+def reboot_anthias():
     """
-    Background task to reboot Screenconnect
+    Background task to reboot Anthias
     """
     if is_balena_app():
         for attempt in Retrying(
@@ -78,9 +78,9 @@ def reboot_connect():
 
 
 @celery.task
-def shutdown_connect():
+def shutdown_anthias():
     """
-    Background task to shutdown Screenconnect
+    Background task to shutdown Anthias
     """
     if is_balena_app():
         for attempt in Retrying(

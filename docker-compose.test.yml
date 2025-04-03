@@ -1,7 +1,7 @@
 # vim: ft=yaml.docker-compose
 
 services:
-  connect-test:
+  anthias-test:
     build:
       context: .
       dockerfile: docker/Dockerfile.test
@@ -14,14 +14,14 @@ services:
     tty: true
     volumes:
       - .:/usr/src/app
-      - connect-data:/data
+      - anthias-data:/data
 
-  connect-celery:
+  anthias-celery:
     build:
       context: .
       dockerfile: docker/Dockerfile.celery
     depends_on:
-      - connect-test
+      - anthias-test
       - redis
     environment:
       - HOME=/data
@@ -29,11 +29,11 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     restart: always
     volumes:
-      - connect-data:/data
+      - anthias-data:/data
 
   redis:
     image: redis:alpine
 
 volumes:
-  connect-data:
+  anthias-data:
   redis-data:

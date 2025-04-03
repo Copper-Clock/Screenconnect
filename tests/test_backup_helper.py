@@ -14,12 +14,12 @@ class BackupHelperTest(unittest.TestCase):
     def setUp(self):
         self.dt = datetime(2016, 7, 19, 12, 42, 12)
         self.expected_archive_name = (
-            'connect-backup-2016-07-19T12-42-12.tar.gz')
+            'anthias-backup-2016-07-19T12-42-12.tar.gz')
         self.assertFalse(path.isdir(path.join(home, static_dir)))
 
     def tearDown(self):
         shutil.rmtree(
-            path.join(home, 'tccconnect'),
+            path.join(home, 'screenly'),
             ignore_errors=True,
         )
 

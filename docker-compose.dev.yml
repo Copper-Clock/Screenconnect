@@ -1,7 +1,7 @@
 # vim: ft=yaml.docker-compose
 
 services:
-  connect-server:
+  anthias-server:
     build:
       context: .
       dockerfile: docker/Dockerfile.server
@@ -13,28 +13,28 @@ services:
       - ENVIRONMENT=development
     restart: always
     volumes:
-      - connect-data:/data
+      - anthias-data:/data
       - ./:/usr/src/app/
 
-  connect-websocket:
+  anthias-websocket:
     build:
       context: .
       dockerfile: docker/Dockerfile.websocket
     depends_on:
-      - connect-server
+      - anthias-server
     environment:
       - HOME=/data
       - LISTEN=0.0.0.0
     restart: always
     volumes:
-      - connect-data:/data
+      - anthias-data:/data
 
-  connect-celery:
+  anthias-celery:
     build:
       context: .
       dockerfile: docker/Dockerfile.celery
     depends_on:
-      - connect-server
+      - anthias-server
       - redis
     environment:
       - HOME=/data
@@ -42,13 +42,13 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     restart: always
     volumes:
-      - connect-data:/data
+      - anthias-data:/data
 
   redis:
     platform: "linux/amd64"
     image: redis:alpine
 
-  connect-nginx:
+  anthias-nginx:
     build:
       context: .
       dockerfile: docker/Dockerfile.nginx
@@ -57,12 +57,12 @@ services:
     environment:
       - HOME=/data
     depends_on:
-      - connect-server
-      - connect-websocket
+      - anthias-server
+      - anthias-websocket
     restart: always
     volumes:
-      - connect-data:/data:ro
+      - anthias-data:/data:ro
 
 volumes:
-    connect-data:
+    anthias-data:
     redis-data:

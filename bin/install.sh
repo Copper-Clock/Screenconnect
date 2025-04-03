@@ -8,16 +8,17 @@ set -euo pipefail
 BRANCH="master"
 ANSIBLE_PLAYBOOK_ARGS=()
 REPOSITORY="https://github.com/Copper-Clock/Screenconnect.git"
-SCREENCONNECT_REPO_DIR="/home/${USER}/tccconnect"
+ANTHIAS_REPO_DIR="/home/${USER}/screenly"
 GITHUB_API_REPO_URL="https://api.github.com/repos/Copper-Clock/Screenconnect"
 GITHUB_RELEASES_URL="https://github.com/Copper-Clock/Screenconnect/releases"
 GITHUB_RAW_URL="https://raw.githubusercontent.com/Copper-Clock/Screenconnect"
 DOCKER_TAG="latest"
-UPGRADE_SCRIPT_PATH="${SCREENCONNECT_REPO_DIR}/bin/upgrade_containers.sh"
+UPGRADE_SCRIPT_PATH="${ANTHIAS_REPO_DIR}/bin/upgrade_containers.sh"
 ARCHITECTURE=$(uname -m)
+DISTRO_VERSION=$(lsb_release -rs)
 
 INTRO_MESSAGE=(
-    "Screenconnect requires a dedicated Raspberry Pi and an SD card."
+    "Anthias requires a dedicated Raspberry Pi and an SD card."
     "You will not be able to use the regular desktop environment once installed."
     ""
     "When prompted for the version, you can choose between the following:"
@@ -27,10 +28,10 @@ INTRO_MESSAGE=(
     "Take note that \`latest\` is a rolling release."
 )
 MANAGE_NETWORK_PROMPT=(
-    "Would you like Screenconnect to manage the network for you?"
+    "Would you like Anthias to manage the network for you?"
 )
 VERSION_PROMPT=(
-    "Which version of Screenconnect would you like to install?"
+    "Which version of Anthias would you like to install?"
 )
 VERSION_PROMPT_CHOICES=(
     "latest"
@@ -74,7 +75,7 @@ function install_prerequisites() {
 }
 
 function display_banner() {
-    local TITLE="${1:-Screenconnect Installer}"
+    local TITLE="${1:-Anthias Installer}"
     local COLOR="212"
 
     gum style \
@@ -121,7 +122,6 @@ function initialize_locales() {
 function install_packages() {
     display_section "Install Packages via APT"
 
-    local DISTRO_VERSION=$(lsb_release -rs)
     local APT_INSTALL_ARGS=(
         "git"
         "libffi-dev"
@@ -148,7 +148,7 @@ function install_packages() {
     fi
 
     if [ "$ARCHITECTURE" != "x86_64" ]; then
-        sudo sed -i 's/apt.tccconnectapp.com/archive.raspbian.org/g' \
+        sudo sed -i 's/apt.screenlyapp.com/archive.raspbian.org/g' \
             /etc/apt/sources.list
     fi
 
@@ -160,7 +160,11 @@ function install_ansible() {
     display_section "Install Ansible"
 
     REQUIREMENTS_URL="$GITHUB_RAW_URL/$BRANCH/requirements/requirements.host.txt"
-    ANSIBLE_VERSION=$(curl -s $REQUIREMENTS_URL | grep ansible)
+    if [ "$DISTRO_VERSION" -le 11 ]; then
+        ANSIBLE_VERSION="ansible-core==2.15.9"
+    else
+        ANSIBLE_VERSION=$(curl -s $REQUIREMENTS_URL | grep ansible)
+    fi
 
     SUDO_ARGS=()
 
@@ -176,7 +180,7 @@ function install_ansible() {
     fi
 
     # @TODO: Remove me later. Cryptography 38.0.3 won't build at the moment.
-    # See https://github.com/Copper-Clock/Screenconnect/issues/1654 for details.
+    # See https://github.com/Screenly/Anthias/issues/1654 for details.
     sudo ${SUDO_ARGS[@]} pip install cryptography==38.0.1
     sudo ${SUDO_ARGS[@]} pip install "$ANSIBLE_VERSION"
 }
@@ -198,13 +202,13 @@ function set_device_type() {
 }
 
 function run_ansible_playbook() {
-    display_section "Run the Screenconnect Ansible Playbook"
+    display_section "Run the Anthias Ansible Playbook"
     set_device_type
 
     sudo -u ${USER} ${SUDO_ARGS[@]} ansible localhost \
         -m git \
-        -a "repo=$REPOSITORY dest=${SCREENCONNECT_REPO_DIR} version=${BRANCH} force=yes"
-    cd ${SCREENCONNECT_REPO_DIR}/ansible
+        -a "repo=$REPOSITORY dest=${ANTHIAS_REPO_DIR} version=${BRANCH} force=yes"
+    cd ${ANTHIAS_REPO_DIR}/ansible
 
     if [ "$ARCHITECTURE" == "x86_64" ]; then
         if [ ! -f /etc/sudoers.d/010_${USER}-nopasswd ]; then
@@ -229,6 +233,7 @@ function upgrade_docker_containers() {
 
     sudo -u ${USER} \
         DOCKER_TAG="${DOCKER_TAG}" \
+        GIT_BRANCH="${BRANCH}" \
         "${UPGRADE_SCRIPT_PATH}"
 }
 
@@ -287,12 +292,12 @@ function modify_permissions() {
     fi
 }
 
-function write_connect_version() {
+function write_anthias_version() {
     local GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local GIT_SHORT_HASH=$(git rev-parse --short HEAD)
-    local SCREENCONNECT_VERSION="Screenconnect Version: ${GIT_BRANCH}@${GIT_SHORT_HASH}"
+    local ANTHIAS_VERSION="Anthias Version: ${GIT_BRANCH}@${GIT_SHORT_HASH}"
 
-    echo "${SCREENCONNECT_VERSION}" > ~/version.md
+    echo "${ANTHIAS_VERSION}" > ~/version.md
     echo "$(lsb_release -a 2> /dev/null)" >> ~/version.md
 }
 
@@ -390,8 +395,8 @@ function main() {
     gum format "**System Upgrade:**     ${SYSTEM_UPGRADE}"
     gum format "**Docker Tag Prefix:**  \`${DOCKER_TAG}\`"
 
-    if [ ! -d "${SCREENCONNECT_REPO_DIR}" ]; then
-        mkdir "${SCREENCONNECT_REPO_DIR}"
+    if [ ! -d "${ANTHIAS_REPO_DIR}" ]; then
+        mkdir "${ANTHIAS_REPO_DIR}"
     fi
 
     initialize_ansible
@@ -404,7 +409,7 @@ function main() {
     cleanup
     modify_permissions
 
-    write_connect_version
+    write_anthias_version
     post_installation
 }
 

@@ -85,12 +85,12 @@ class TestLoadBrowser(ViewerTestCase):
 
     def test_load_browser(self):
         self.m_cmd.return_value.return_value.process.stdout = (
-            b'Copper-Clock service start'
+            b'Screenly service start'
         )
         self.p_cmd.start()
         self.u.load_browser()
         self.p_cmd.stop()
-        self.m_cmd.assert_called_once_with('TccconnectWebview')
+        self.m_cmd.assert_called_once_with('ScreenlyWebview')
 
 
 class TestSignalHandlers(ViewerTestCase):

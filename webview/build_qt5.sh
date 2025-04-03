@@ -259,9 +259,9 @@ function build_qt () {
         make -j"$MAKE_CORES"
         make install
 
-        mkdir -p fakeroot/bin fakeroot/share/TccconnectWebview
-        mv TccconnectWebview fakeroot/bin/
-        cp -rf /webview/res fakeroot/share/TccconnectWebview/
+        mkdir -p fakeroot/bin fakeroot/share/ScreenlyWebview
+        mv ScreenlyWebview fakeroot/bin/
+        cp -rf /webview/res fakeroot/share/ScreenlyWebview/
 
         pushd fakeroot
         tar cfz "$BUILD_TARGET/webview-$QT_VERSION-$DEBIAN_VERSION-$1-$GIT_HASH.tar.gz" .
@@ -281,7 +281,7 @@ fetch_rpi_firmware
 
 if [ ! "${TARGET-}" ]; then
     # Let's work our way through all Pis in order of relevance
-    for device in pi4; do
+    for device in pi4 pi3 pi2 pi1; do
         build_qt "$device"
     done
 else

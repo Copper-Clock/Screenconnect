@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if [[ -f ./docker-compose.yml ]]; then
-    docker compose up -d connect-wifi-connect
+    docker compose up -d anthias-wifi-connect
 fi

@@ -1,7 +1,7 @@
 ## Building Qt and WebView
 
 > [!WARNING]
-> To build this, you need **very** beefy hardware. We are building this on a VM with 32 vCPUs and 128GB RAM. If you're trying to build it locally, you likely need to tweak [MAKE_CORES](https://github.com/Copper-Clock/tccconnect-ose/blob/master/webview/build_qt5.sh#L12) to something lower, but you would still need a powerful workstation (32GB RAM minimum) to make this build.
+> To build this, you need **very** beefy hardware. We are building this on a VM with 32 vCPUs and 128GB RAM. If you're trying to build it locally, you likely need to tweak [MAKE_CORES](https://github.com/Screenly/screenly-ose/blob/master/webview/build_qt5.sh#L12) to something lower, but you would still need a powerful workstation (32GB RAM minimum) to make this build.
 
 ### Building for Raspberry Pi (1-4)
 
@@ -9,11 +9,10 @@ Since our entire build environment resides inside a Docker container, you don't 
 
 ```bash
 $ cd webview
-$ #docker buildx build \
-  #  --load \
-  #  --build-arg GIT_HASH=$(git rev-parse --short HEAD) \
-  #  -t qt-builder .
-$ docker buildx build --platform linux/arm64 -t qt-builder .
+$ docker buildx build \
+    --load \
+    --build-arg GIT_HASH=$(git rev-parse --short HEAD) \
+    -t qt-builder .
 ```
 
 Start the builder container with the following command:
@@ -51,39 +50,53 @@ You can learn more about this process in the blog post [Compiling Qt with Docker
 You can append the following environment variables to configure the build process:
 
 * `CLEAN_BUILD`: Set to `1` to ensure a clean build (not including the `ccache` cache).
-* `BUILD_WEBVIEW`:  Set to `0` to disable the build of Copper-ClockWebView.
+* `BUILD_WEBVIEW`:  Set to `0` to disable the build of ScreenlyWebView.
 * `TARGET`: Specify a particular target (such as `pi3` or `pi4`) instead of all existing boards.
 
 ### Building for x86
 
 ```bash
-$ cd webview
-$ docker compose -f docker-compose.x86.yml up -d --build
-$ docker compose -f docker-compose.x86.yml exec builder /webview/build_x86.sh
+$ cd webview/
+$ export GIT_HASH=$(git rev-parse --short HEAD)
+$ export COMPOSE_PROFILES=x86
+$ docker compose up -d --build
+$ docker compose exec builder-x86 /scripts/build_webview.sh
 ```
 
-By default, the script will use pre-built Qt binaries to speed up the build process. If you want to build Qt from source, you can set the `BUILD_QT` environment variable:
-
-```bash
-$ docker compose -f docker-compose.x86.yml exec -e BUILD_QT=1 builder /webview/build_x86.sh
-```
-
-The resulting files will be placed in `~/tmp-x86/qt-build/release`.
+The resulting files will be placed in `~/tmp-x86/build/release`.
 
 When you're done, you can stop and remove the container with the following commands:
 
 ```bash
-docker compose -f docker-compose.x86.yml down
+$ docker compose down
 ```
 
 ### Building for Raspberry Pi 5
 
-See this [documentation](/webview/docs/build_webview_for_pi5.md) for details
+> [!NOTE]
+> At this time, you can only build the WebView for Raspberry Pi 5 devices
+> from a Raspberry Pi 5 device.
+> You need to have the following installed and set up on your Raspberry Pi 5:
+> - Docker (arm64)
+> - Code editor of your choice (e.g., Visual Studio Code, Neovim, etc.)
+
+The steps are similar to that of [building for x86](#building-for-x86),
+but you need to specify the set the Docker Compose profile to `pi5`:
+
+```bash
+$ cd webview/
+$ export GIT_HASH=$(git rev-parse --short HEAD)
+$ export COMPOSE_PROFILES=pi5
+$ docker compose up -d --build
+$ docker compose exec builder-pi5 /scripts/build_webview.sh
+```
+
+The resulting files will be placed in `~/tmp-pi5/build/release`.
 
 ## Usage
 
 DBus is used for communication.
-Webview registers `tccconnect.webview` object at `/Copper-Clock` address on the session bus.
+Webview registers `screenly.webview` object at `/Screenly` address on the session bus.
 
 Webview provides 2 methods:`loadPage` and `loadImage`.
 
@@ -93,7 +106,7 @@ Example of interaction (python):
 from pydbus import SessionBus
 
 bus = SessionBus()
-browser_bus = bus.get('tccconnect.webview', '/Copper-Clock')
+browser_bus = bus.get('screenly.webview', '/Screenly')
 
 browser_bus.loadPage("www.example.com")
 ```

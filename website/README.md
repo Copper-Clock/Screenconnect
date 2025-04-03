@@ -1,6 +1,6 @@
-# Screenconnect Website
+# Anthias Website
 
-This is the source code for [connect.tccconnect.io](https://connect.tccconnect.io).
+This is the source code for [anthias.screenly.io](https://anthias.screenly.io).
 
 ## Local Development
 

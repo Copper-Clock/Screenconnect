@@ -1,5 +1,5 @@
 {
-  "name": "connect",
+  "name": "anthias",
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",

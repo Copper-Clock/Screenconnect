@@ -1,5 +1,5 @@
 jQuery(function() {
-  Screenconnect.app = new Screenconnect.App({
+  Anthias.app = new Anthias.App({
     el: $('body')
   });
 });

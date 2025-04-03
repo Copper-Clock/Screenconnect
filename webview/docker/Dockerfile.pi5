@@ -4,8 +4,6 @@ FROM balenalib/raspberrypi5-debian:bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-COPY TccconnectWebview.pro /build/
-
 # Build dependencies for the Qt 6 app
 RUN apt-get -y update && apt-get install -y \
     build-essential \

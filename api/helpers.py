@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
-from connect_app.models import Asset
+from anthias_app.models import Asset
 
 
 class AssetCreationError(Exception):
