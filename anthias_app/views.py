@@ -216,7 +216,7 @@ def system_info(request):
 
     if git_branch == 'master':
         anthias_commit_link = (
-            'https://github.com/Screenly/Anthias'
+            'https://github.com/Copper-Clock/Screenconnect'
             f'/commit/{git_short_hash}'
         )
 
