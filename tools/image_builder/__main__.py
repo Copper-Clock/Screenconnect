@@ -214,7 +214,7 @@ def main(
     # Build Docker images
     for service_name in services_to_build:
         # Define tag components
-        namespaces = ['tccconnect/connect', 'screenly/srly-ose']
+        namespaces = ['tccconnect/connect', 'tccconnect/srly-ose']
         version_suffix = (
             f'{board}-64' if board == 'pi4' and platform == 'linux/arm64/v8'
             else f'{board}'
